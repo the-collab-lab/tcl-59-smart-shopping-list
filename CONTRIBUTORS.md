@@ -7,6 +7,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 - [Cassandra Umeh](https://github.com/cassie202)🥳
+- [Karen Parker] (https://github.com/karenjparker77) 😁
 
 ## Mentors
 
