@@ -8,6 +8,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 - [Cassandra Umeh](https://github.com/cassie202)🥳
 - [Karen Parker] (https://github.com/karenjparker77) 😁
+- [Michael Ogbo](https://github.com/mikeyxx) 😎
 
 ## Mentors
 
