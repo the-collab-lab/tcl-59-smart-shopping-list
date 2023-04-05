@@ -8,8 +8,8 @@ export function List({ data }) {
 			</p>
 
 			<ul>
-				{data.map((data) => (
-					<ListItem name={data.name} />
+				{data.map((item) => (
+					<ListItem key={item.name} name={item.name} />
 				))}
 			</ul>
 		</>
