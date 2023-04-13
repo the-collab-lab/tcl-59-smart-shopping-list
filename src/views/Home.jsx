@@ -1,11 +1,12 @@
 import './Home.css';
+import { Link } from 'react-router-dom';
 
-export function Home() {
+export function Home({ handleCreateList }) {
 	return (
 		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
+			<Link to="/list">
+				<button onClick={handleCreateList}>Create List</button>
+			</Link>
 		</div>
 	);
 }

@@ -6,6 +6,8 @@ import { AddItem, Home, Layout, List } from './views';
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
 
+import { generateToken } from '@the-collab-lab/shopping-list-utils';
+
 export function App() {
 	const [data, setData] = useState([]);
 	/**
@@ -19,7 +21,7 @@ export function App() {
 	 * to create and join a new list.
 	 */
 	const [listToken, setListToken] = useStateWithStorage(
-		'my test list',
+		null,
 		'tcl-shopping-list-token',
 	);
 
@@ -47,11 +49,17 @@ export function App() {
 		});
 	}, [listToken]);
 
+	const handleCreateList = () => {
+		if (listToken) return;
+
+		setListToken(generateToken());
+	};
+
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
+					<Route index element={<Home handleCreateList={handleCreateList} />} />
 					<Route path="/list" element={<List data={data} />} />
 					<Route path="/add-item" element={<AddItem listToken={listToken} />} />
 				</Route>
