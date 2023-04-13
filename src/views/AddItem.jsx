@@ -7,6 +7,10 @@ export function AddItem({ listToken }) {
 		itemName: '',
 		daysUntilNextPurchase: '7',
 	});
+	const [success, setSuccess] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
+	const [isAdded, setIsAdd] = useState(false);
+
 	function handleChange(event) {
 		const { name, value } = event.target;
 		setItemData((prevFormData) => {
@@ -17,13 +21,36 @@ export function AddItem({ listToken }) {
 		});
 	}
 
-	const { itemName, daysUntilNextPurchase } = itemData;
-
-	function handleSubmit(e) {
+	async function handleSubmit(e) {
 		e.preventDefault();
-		addItem(listToken, itemName, parseInt(daysUntilNextPurchase));
-		console.log(itemName, parseInt(daysUntilNextPurchase));
+		try {
+			await addItem(listToken, itemData);
+			setIsAdd(true);
+			setSuccess('Data added successfully');
+		} catch (error) {
+			setErrorMsg('Adding data failed');
+		}
+
+		setItemData({
+			...itemData,
+			itemName: '',
+			daysUntilNextPurchase: '7',
+		});
+
+		showAlert();
 	}
+
+	const showAlert = () => {
+		if (isAdded) {
+			setTimeout(() => {
+				setSuccess('');
+			}, 3000);
+		} else {
+			setTimeout(() => {
+				setErrorMsg('');
+			}, 3000);
+		}
+	};
 
 	return (
 		<form method="post" onSubmit={handleSubmit}>
@@ -82,6 +109,7 @@ export function AddItem({ listToken }) {
 			<div>
 				<button>Add Item</button>
 			</div>
+			<span>{isAdded ? success : errorMsg}</span>
 		</form>
 	);
 }
