@@ -9,7 +9,7 @@ export function AddItem({ listToken }) {
 	});
 	const [success, setSuccess] = useState('');
 	const [errorMsg, setErrorMsg] = useState('');
-	const [isAdded, setIsAdd] = useState(false);
+	const [isAdded, setIsAdded] = useState(false);
 
 	function handleChange(event) {
 		const { name, value } = event.target;
@@ -25,9 +25,10 @@ export function AddItem({ listToken }) {
 		e.preventDefault();
 		try {
 			await addItem(listToken, itemData);
-			setIsAdd(true);
+			setIsAdded(true);
 			setSuccess('Data added successfully');
 		} catch (error) {
+			setIsAdded(false);
 			setErrorMsg('Adding data failed');
 		}
 
@@ -41,15 +42,10 @@ export function AddItem({ listToken }) {
 	}
 
 	const showAlert = () => {
-		if (isAdded) {
-			setTimeout(() => {
-				setSuccess('');
-			}, 3000);
-		} else {
-			setTimeout(() => {
-				setErrorMsg('');
-			}, 3000);
-		}
+		setTimeout(() => {
+			setSuccess('');
+			setErrorMsg('');
+		}, 3000);
 	};
 
 	return (
