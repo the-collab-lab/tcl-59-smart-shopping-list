@@ -21,6 +21,13 @@ export function AddItem({ listToken }) {
 		});
 	}
 
+	const hideAlert = () => {
+		setTimeout(() => {
+			setSuccess('');
+			setErrorMsg('');
+		}, 3000);
+	};
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 		try {
@@ -33,20 +40,12 @@ export function AddItem({ listToken }) {
 		}
 
 		setItemData({
-			...itemData,
 			itemName: '',
 			daysUntilNextPurchase: '7',
 		});
 
-		showAlert();
+		hideAlert();
 	}
-
-	const showAlert = () => {
-		setTimeout(() => {
-			setSuccess('');
-			setErrorMsg('');
-		}, 3000);
-	};
 
 	return (
 		<form method="post" onSubmit={handleSubmit}>
