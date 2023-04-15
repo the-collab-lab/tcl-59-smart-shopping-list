@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Navigate,
+} from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
@@ -59,9 +64,24 @@ export function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home handleCreateList={handleCreateList} />} />
-					<Route path="/list" element={<List data={data} />} />
-					<Route path="/add-item" element={<AddItem listToken={listToken} />} />
+					<Route
+						index
+						element={
+							listToken ? (
+								<Navigate to="/list" />
+							) : (
+								<Home handleCreateList={handleCreateList} />
+							)
+						}
+					/>
+					<Route
+						path="/list"
+						element={listToken ? <List data={data} /> : <Navigate to="/" />}
+					/>
+					<Route
+						path="/add-item"
+						element={listToken ? <AddItem /> : <Navigate to="/" />}
+					/>
 				</Route>
 			</Routes>
 		</Router>
