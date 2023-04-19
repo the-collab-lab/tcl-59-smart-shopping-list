@@ -15,7 +15,6 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
-
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -27,9 +26,10 @@ export function App() {
 	 * to create and join a new list.
 	 */
 	const [listToken, setListToken] = useStateWithStorage(
-		'null',
+		null,
 		'tcl-shopping-list-token',
 	);
+	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		if (!listToken) return;
@@ -61,6 +61,13 @@ export function App() {
 		setListToken(generateToken());
 	};
 
+	const filterList = () => {
+		const filteredData = data.filter((item) =>
+			item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+		);
+		return filteredData;
+	};
+
 	return (
 		<Router>
 			<Routes>
@@ -79,7 +86,7 @@ export function App() {
 						path="/list"
 						element={
 							listToken ? (
-								<List data={data} listToken={listToken} />
+								<List data={filterList()} setSearchQuery={setSearchQuery} />
 							) : (
 								<Navigate to="/" />
 							)
