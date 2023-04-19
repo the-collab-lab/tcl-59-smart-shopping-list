@@ -15,6 +15,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -26,7 +27,7 @@ export function App() {
 	 * to create and join a new list.
 	 */
 	const [listToken, setListToken] = useStateWithStorage(
-		null,
+		'null',
 		'tcl-shopping-list-token',
 	);
 
@@ -76,7 +77,13 @@ export function App() {
 					/>
 					<Route
 						path="/list"
-						element={listToken ? <List data={data} /> : <Navigate to="/" />}
+						element={
+							listToken ? (
+								<List data={data} listToken={listToken} />
+							) : (
+								<Navigate to="/" />
+							)
+						}
 					/>
 					<Route
 						path="/add-item"
