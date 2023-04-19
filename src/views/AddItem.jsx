@@ -37,6 +37,7 @@ export function AddItem({ listToken }) {
 		} catch (error) {
 			setIsAdded(false);
 			setErrorMsg('Adding data failed');
+			console.log(error);
 		}
 
 		setItemData({
@@ -48,7 +49,7 @@ export function AddItem({ listToken }) {
 	}
 
 	return (
-		<form method="post" onSubmit={handleSubmit}>
+		<form onSubmit={handleSubmit}>
 			<label htmlFor="itemName">Item name:</label>
 			<br />
 			<input
