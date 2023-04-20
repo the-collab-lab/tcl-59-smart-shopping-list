@@ -15,6 +15,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+	const [errorMsg, setErrorMsg] = useState('');
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -51,14 +52,33 @@ export function App() {
 
 			/** Finally, we update our React state. */
 			setData(nextData);
+			console.log(nextData);
 		});
 	}, [listToken]);
 
 	const handleCreateList = () => {
 		if (listToken) return;
-
 		setListToken(generateToken());
 	};
+
+	const handleJoinList = (token) => {
+		streamListItems(token, (snapshot) => {
+			const nextData = getItemData(snapshot);
+			if (nextData.length === 0) {
+				setErrorMsg('List does not exist!');
+			} else {
+				setData(nextData);
+				setListToken(token);
+			}
+		});
+	};
+	useEffect(() => {
+		if (errorMsg) {
+			setTimeout(() => {
+				setErrorMsg('');
+			}, 3000);
+		}
+	}, [errorMsg]);
 
 	return (
 		<Router>
@@ -70,7 +90,11 @@ export function App() {
 							listToken ? (
 								<Navigate to="/list" />
 							) : (
-								<Home handleCreateList={handleCreateList} />
+								<Home
+									handleCreateList={handleCreateList}
+									handleJoinList={handleJoinList}
+									errorMsg={errorMsg}
+								/>
 							)
 						}
 					/>
