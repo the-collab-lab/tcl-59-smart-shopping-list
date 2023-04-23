@@ -2,9 +2,6 @@ import './Home.css';
 import { Link } from 'react-router-dom';
 
 export function Home({ handleCreateList, handleJoinList }) {
-	const handleSubmit = (event) => {
-		event.preventDefault();
-	};
 	return (
 		<div className="Home">
 			<form onSubmit={handleJoinList}>

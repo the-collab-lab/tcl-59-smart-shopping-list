@@ -29,7 +29,6 @@ export function App() {
 		null,
 		'tcl-shopping-list-token',
 	);
-	const [searchQuery, setSearchQuery] = useState('');
 
 	useEffect(() => {
 		if (!listToken) return;
@@ -61,13 +60,6 @@ export function App() {
 		setListToken(generateToken());
 	};
 
-	const filterList = () => {
-		const filteredData = data.filter((item) =>
-			item.name.toLowerCase().includes(searchQuery.toLowerCase()),
-		);
-		return filteredData;
-	};
-
 	return (
 		<Router>
 			<Routes>
@@ -84,13 +76,7 @@ export function App() {
 					/>
 					<Route
 						path="/list"
-						element={
-							listToken ? (
-								<List data={filterList()} setSearchQuery={setSearchQuery} />
-							) : (
-								<Navigate to="/" />
-							)
-						}
+						element={listToken ? <List data={data} /> : <Navigate to="/" />}
 					/>
 					<Route
 						path="/add-item"

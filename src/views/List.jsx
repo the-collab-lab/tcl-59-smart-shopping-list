@@ -1,6 +1,15 @@
+import { useState } from 'react';
 import { ListItem } from '../components';
 
-export function List({ data, setSearchQuery }) {
+export function List({ data }) {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const filterList = () => {
+		const filteredData = data.filter((item) =>
+			item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+		);
+		return filteredData;
+	};
 	return (
 		<>
 			<div>
@@ -16,7 +25,7 @@ export function List({ data, setSearchQuery }) {
 			</div>
 
 			<ul>
-				{data.map((item) => (
+				{filterList().map((item) => (
 					<ListItem key={item.id} name={item.name} />
 				))}
 			</ul>
