@@ -5,14 +5,10 @@ import React, { useState } from 'react';
 export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 	const [token, setToken] = useState('');
 
-	const handleChange = (event) => {
-		setToken(event.target.value);
-	};
 	function handleSubmit(e) {
 		e.preventDefault();
 		handleJoinList(token);
 	}
-
 	return (
 		<div className="Home">
 			<Link to="/list">
@@ -27,12 +23,12 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 						id="listToken"
 						type="text"
 						name="listToken"
-						onChange={handleChange}
+						onChange={(e) => setToken(e.target.value)}
 						value={token.listToken}
 						placeholder="three word token"
 					/>
 					<br />
-					<button type="submit">Join an existing List</button>
+					<button>Join an existing List</button>
 				</form>
 				<span> {errorMsg}</span>
 			</div>
