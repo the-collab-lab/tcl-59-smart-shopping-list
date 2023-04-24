@@ -11,6 +11,7 @@ export function AddItem({ listToken }) {
 	const [errorMsg, setErrorMsg] = useState('');
 	const [isAdded, setIsAdded] = useState(false);
 
+	// this puts state in localStorage
 	function handleChange(event) {
 		const { name, value } = event.target;
 		setItemData((prevFormData) => {
