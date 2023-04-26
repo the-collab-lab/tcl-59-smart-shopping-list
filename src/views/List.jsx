@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 
 export function List({ data, isLoading }) {
-	console.log(data);
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const filteredData = data.filter((item) =>
