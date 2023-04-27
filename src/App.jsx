@@ -52,7 +52,6 @@ export function App() {
 
 			/** Finally, we update our React state. */
 			setData(nextData);
-			console.log(nextData);
 		});
 	}, [listToken]);
 
@@ -100,7 +99,13 @@ export function App() {
 					/>
 					<Route
 						path="/list"
-						element={listToken ? <List data={data} /> : <Navigate to="/" />}
+						element={
+							listToken ? (
+								<List listToken={listToken} data={data} />
+							) : (
+								<Navigate to="/" />
+							)
+						}
 					/>
 					<Route
 						path="/add-item"

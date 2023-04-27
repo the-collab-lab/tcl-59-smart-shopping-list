@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { ListItem } from '../components';
 
-export function List({ data }) {
+export function List({ data, listToken }) {
 	const [searchQuery, setSearchQuery] = useState('');
 
-	const filterList = () => {
-		const filteredData = data.filter((item) =>
-			item.name.toLowerCase().includes(searchQuery.toLowerCase()),
-		);
-		return filteredData;
-	};
+	const filteredData = data.filter((item) =>
+		item.name.toLowerCase().includes(searchQuery.toLowerCase()),
+	);
+
 	return (
 		<>
 			<div>
@@ -25,8 +23,8 @@ export function List({ data }) {
 			</div>
 
 			<ul>
-				{filterList().map((item) => (
-					<ListItem key={item.id} name={item.name} />
+				{filteredData.map((item) => (
+					<ListItem listToken={listToken} key={item.id} item={item} />
 				))}
 			</ul>
 		</>
