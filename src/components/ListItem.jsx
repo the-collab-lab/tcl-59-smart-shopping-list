@@ -1,17 +1,15 @@
 import './ListItem.css';
-import { useState } from 'react';
 import { updateItem } from '../api';
+import { sub } from 'date-fns';
 
 export function ListItem({ item, listToken }) {
-	const [counter, setCounter] = useState(0);
-
 	const handleUpdate = async (isChecked) => {
-		let day = new Date();
-		let purchaseCounter = item.totalPurchases + counter;
-		let status = isChecked;
-		const newData = { day, purchaseCounter, status };
+		let day = Date.now();
+		let purchaseCounter = item.totalPurchases + 1;
+
 		try {
 			if (isChecked) {
+				const newData = { day, purchaseCounter };
 				await updateItem(listToken, item.id, newData);
 				console.log('success');
 			}
@@ -26,12 +24,9 @@ export function ListItem({ item, listToken }) {
 				<input
 					type="checkbox"
 					id={item.id}
-					defaultChecked={item.purchased}
+					defaultChecked={sub(new Date(), { days: 1 }) < item.dateLastPurchased}
 					onChange={(e) => {
 						handleUpdate(e.target.checked);
-						let updateCount = counter + 1;
-
-						setCounter(updateCount);
 					}}
 				/>
 				{item.name}

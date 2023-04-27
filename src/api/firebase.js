@@ -72,16 +72,11 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(
-	listId,
-	itemId,
-	{ day, purchaseCounter, status },
-) {
+export async function updateItem(listId, itemId, { day, purchaseCounter }) {
 	const listCollectionRef = doc(db, listId, itemId);
 	return updateDoc(listCollectionRef, {
 		dateLastPurchased: day,
 		totalPurchases: purchaseCounter,
-		purchased: status,
 	});
 	/**
 	 * TODO: Fill this out so that it uses the correct Firestore function
