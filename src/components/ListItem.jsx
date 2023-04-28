@@ -24,7 +24,9 @@ export function ListItem({ item, listToken }) {
 	return (
 		<li
 			className="ListItem"
-			title={isRecentlyPurchased && 'You recently purchased this item'}
+			title={
+				isRecentlyPurchased ? 'You recently purchased this item' : undefined
+			}
 		>
 			<label htmlFor={item.id}>
 				<input
@@ -35,7 +37,9 @@ export function ListItem({ item, listToken }) {
 					onChange={(e) => {
 						handleUpdate(e.target.checked);
 					}}
-					title={isRecentlyPurchased && 'You recently purchased this item'}
+					title={
+						isRecentlyPurchased ? 'You recently purchased this item' : undefined
+					}
 				/>
 				{item.name}
 			</label>
