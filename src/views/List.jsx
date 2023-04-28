@@ -3,7 +3,8 @@ import { ListItem } from '../components';
 import { Link } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
 
-export function List({ data, isLoading }) {
+export function List({ data, isLoading, listToken }) {
+
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const filteredData = data.filter((item) =>
@@ -34,7 +35,7 @@ export function List({ data, isLoading }) {
 					/>
 					<ul>
 						{filteredData.map((item) => (
-							<ListItem key={item.id} name={item.name} />
+							<ListItem listToken={listToken} key={item.id} item={item} />
 						))}
 					</ul>
 				</div>

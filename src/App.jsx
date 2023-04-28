@@ -56,7 +56,6 @@ export function App() {
 			/** Finally, we update our React state. */
 			setData(nextData);
 			setIsLoading(false);
-			console.log(nextData);
 		});
 	}, [listToken]);
 
@@ -105,7 +104,7 @@ export function App() {
 						path="/list"
 						element={
 							listToken ? (
-								<List data={data} isLoading={isLoading} />
+								<List listToken={listToken} data={data} isLoading={isLoading} />
 							) : (
 								<Navigate to="/" />
 							)
