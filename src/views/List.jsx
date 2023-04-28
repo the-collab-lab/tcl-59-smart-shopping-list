@@ -25,6 +25,7 @@ export function List({ data, listToken }) {
 			<ul>
 				{filteredData.map((item) => (
 					<ListItem listToken={listToken} key={item.id} item={item} />
+
 				))}
 			</ul>
 		</>
