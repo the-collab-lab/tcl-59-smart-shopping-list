@@ -25,6 +25,7 @@ export function ListItem({ item, listToken }) {
 					type="checkbox"
 					id={item.id}
 					defaultChecked={sub(new Date(), { days: 1 }) < item.dateLastPurchased}
+					disabled={sub(new Date(), { days: 1 }) < item.dateLastPurchased}
 					onChange={(e) => {
 						handleUpdate(e.target.checked);
 					}}
