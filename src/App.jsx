@@ -16,6 +16,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 export function App() {
 	const [data, setData] = useState([]);
 	const [errorMsg, setErrorMsg] = useState('');
+	const [isLoading, setIsLoading] = useState(false);
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -32,6 +33,7 @@ export function App() {
 	);
 
 	useEffect(() => {
+		setIsLoading(true);
 		if (!listToken) return;
 
 		/**
@@ -48,10 +50,12 @@ export function App() {
 			 *
 			 * Refer to `api/firebase.js`
 			 */
+
 			const nextData = getItemData(snapshot);
 
 			/** Finally, we update our React state. */
 			setData(nextData);
+			setIsLoading(false);
 		});
 	}, [listToken]);
 
@@ -59,7 +63,6 @@ export function App() {
 		if (listToken) return;
 		setListToken(generateToken());
 	};
-
 	const handleJoinList = (token) => {
 		streamListItems(token, (snapshot) => {
 			const nextData = getItemData(snapshot);
@@ -101,7 +104,7 @@ export function App() {
 						path="/list"
 						element={
 							listToken ? (
-								<List listToken={listToken} data={data} />
+								<List listToken={listToken} data={data} isLoading={isLoading} />
 							) : (
 								<Navigate to="/" />
 							)
