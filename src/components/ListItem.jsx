@@ -37,9 +37,6 @@ export function ListItem({ item, listToken }) {
 					onChange={(e) => {
 						handleUpdate(e.target.checked);
 					}}
-					title={
-						isRecentlyPurchased ? 'You recently purchased this item' : undefined
-					}
 				/>
 				{item.name}
 			</label>
