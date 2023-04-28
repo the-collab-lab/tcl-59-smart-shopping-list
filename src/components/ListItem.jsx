@@ -18,17 +18,24 @@ export function ListItem({ item, listToken }) {
 		}
 	};
 
+	const isRecentlyPurchased =
+		sub(new Date(), { days: 1 }) < item.dateLastPurchased;
+
 	return (
-		<li className="ListItem">
+		<li
+			className="ListItem"
+			title={isRecentlyPurchased && 'You recently purchased this item'}
+		>
 			<label htmlFor={item.id}>
 				<input
 					type="checkbox"
 					id={item.id}
-					defaultChecked={sub(new Date(), { days: 1 }) < item.dateLastPurchased}
-					disabled={sub(new Date(), { days: 1 }) < item.dateLastPurchased}
+					defaultChecked={isRecentlyPurchased}
+					disabled={isRecentlyPurchased}
 					onChange={(e) => {
 						handleUpdate(e.target.checked);
 					}}
+					title={isRecentlyPurchased && 'You recently purchased this item'}
 				/>
 				{item.name}
 			</label>
