@@ -16,7 +16,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 export function App() {
 	const [data, setData] = useState([]);
 	const [errorMsg, setErrorMsg] = useState('');
-	const [isLoading, setIsLoading] = useState(false);
+	const [isLoading, setIsLoading] = useState(true);
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -33,7 +33,6 @@ export function App() {
 	);
 
 	useEffect(() => {
-		setIsLoading(true);
 		if (!listToken) return;
 
 		/**
