@@ -11,8 +11,17 @@ export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
 
-export function getDaysBetweenDates(date1, date2) {
-	const timeDifference = date2.getTime() - date1.getTime();
+/**
+ *
+ * @param {firebase.firestore.Timestamp} startTimestamp
+ * @param {firebase.firestore.Timestamp} endTimestamp
+ * @returns {number} number of days between two dates.
+ */
+
+export function getDaysBetweenDates(startTimestamp, endTimestamp) {
+	const start = startTimestamp.toDate();
+	const end = endTimestamp.toDate();
+	const timeDifference = end.getTime() - start.getTime();
 	const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 	return daysDifference;
 }
