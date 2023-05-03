@@ -13,13 +13,19 @@ export function AddItem({ listToken, data }) {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-		// if statement for duplicate entries here
-
-		setItemData((prevFormData) => {
-			return {
-				...prevFormData,
-				[name]: value,
-			};
+		data.map((item) => {
+			if (
+				item.name.toLowerCase().split(' ').join('') ===
+				value.toLowerCase().split(' ').join('')
+			) {
+				setErrorMsg('That item is already in your list');
+			} else
+				setItemData((prevFormData) => {
+					return {
+						...prevFormData,
+						[name]: value,
+					};
+				});
 		});
 	}
 
