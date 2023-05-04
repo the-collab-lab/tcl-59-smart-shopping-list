@@ -13,19 +13,12 @@ export function AddItem({ listToken, data }) {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-		data.map((item) => {
-			if (
-				item.name.toLowerCase().split(' ').join('') ===
-				value.toLowerCase().split(' ').join('')
-			) {
-				setErrorMsg('That item is already in your list');
-			} else
-				setItemData((prevFormData) => {
-					return {
-						...prevFormData,
-						[name]: value,
-					};
-				});
+
+		setItemData((prevFormData) => {
+			return {
+				...prevFormData,
+				[name]: value,
+			};
 		});
 	}
 
@@ -40,11 +33,21 @@ export function AddItem({ listToken, data }) {
 		e.preventDefault();
 
 		try {
-			if (e.target.name === '') {
+			if (itemData.itemName === '') {
 				setErrorMsg("Please add item's name");
-			} else await addItem(listToken, itemData);
-			setIsAdded(true);
-			setSuccess('Data added successfully');
+			} else if (
+				data.map(
+					(item) =>
+						item.name.toLowerCase().split(' ').join('') ===
+						itemData.itemName.toLowerCase().split(' ').join(''),
+				)
+			) {
+				setErrorMsg('This item is already in your list');
+			} else {
+				await addItem(listToken, itemData);
+				setIsAdded(true);
+				setSuccess('Data added successfully');
+			}
 		} catch (error) {
 			setIsAdded(false);
 			setErrorMsg('Adding data failed');
@@ -61,7 +64,11 @@ export function AddItem({ listToken, data }) {
 
 	return (
 		<>
-			<h1 style={{ backgroundColor: 'red', color: 'white' }}>{errorMsg}</h1>
+			<section>
+				<span className={isAdded ? 'success' : 'failed'}>
+					{isAdded ? success : errorMsg}
+				</span>
+			</section>
 
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="itemName">Item name:</label>
@@ -119,7 +126,6 @@ export function AddItem({ listToken, data }) {
 				<div>
 					<button>Add Item</button>
 				</div>
-				<span>{isAdded ? success : errorMsg}</span>
 			</form>
 		</>
 	);
