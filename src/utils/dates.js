@@ -19,9 +19,9 @@ export function getFutureDate(offset) {
  */
 
 export function getDaysBetweenDates(startTimestamp, endTimestamp) {
-	const start = startTimestamp.toDate();
-	const end = endTimestamp.toDate();
-	const timeDifference = end.getTime() - start.getTime();
+	const dateCreated = startTimestamp.toDate();
+	const dateLastPurchased = endTimestamp.toDate();
+	const timeDifference = dateLastPurchased.getTime() - dateCreated.getTime();
 	const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
 	return daysDifference;
 }
