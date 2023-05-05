@@ -29,19 +29,21 @@ export function AddItem({ listToken, data }) {
 		}, 3000);
 	};
 
+	const filtered = data.filter((item) =>
+		item.name
+			.toLowerCase()
+			.split(' ')
+			.join('')
+			.includes(itemData.itemName.toLowerCase().split(' ').join('')),
+	);
+
 	async function handleSubmit(e) {
 		e.preventDefault();
 
 		try {
 			if (itemData.itemName === '') {
 				setErrorMsg("Please add item's name");
-			} else if (
-				data.map(
-					(item) =>
-						item.name.toLowerCase().split(' ').join('') ===
-						itemData.itemName.toLowerCase().split(' ').join(''),
-				)
-			) {
+			} else if (filtered.length > 0) {
 				setErrorMsg('This item is already in your list');
 			} else {
 				await addItem(listToken, itemData);
