@@ -32,9 +32,16 @@ export function AddItem({ listToken, data }) {
 	const filtered = data.filter((item) =>
 		item.name
 			.toLowerCase()
+			.replace(/[^\w\s]/g, '') // remove punctuations
 			.split(' ')
 			.join('')
-			.includes(itemData.itemName.toLowerCase().split(' ').join('')),
+			.includes(
+				itemData.itemName
+					.toLowerCase()
+					.replace(/[^\w\s]/g, '') // remove punctuations
+					.split(' ')
+					.join(''),
+			),
 	);
 
 	async function handleSubmit(e) {
