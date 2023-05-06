@@ -7,7 +7,6 @@ import {
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';
-import { getDaysBetweenDates } from '../utils/dates';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -77,14 +76,14 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 export async function updateItem(
 	listId,
 	itemId,
-	{ day, purchaseCounter, nextDay },
+	{ day, purchaseCounter, dateNextPurchased },
 ) {
 	try {
 		const listCollectionRef = doc(db, listId, itemId);
 		return updateDoc(listCollectionRef, {
 			dateLastPurchased: day,
 			totalPurchases: purchaseCounter,
-			dateNextPurchased: nextDay,
+			dateNextPurchased: dateNextPurchased,
 		});
 	} catch (error) {
 		console.error(error);
