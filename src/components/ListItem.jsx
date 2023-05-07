@@ -7,7 +7,6 @@ import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 export function ListItem({ item, listToken }) {
 	const handleUpdate = async (isChecked) => {
-		console.log({ item, isChecked });
 		let day = Date.now();
 		let purchaseCounter = item.totalPurchases + 1;
 		try {
@@ -23,13 +22,11 @@ export function ListItem({ item, listToken }) {
 					daysSinceLastPurchase,
 					purchaseCounter,
 				);
-				console.log({ nextEstimate });
 				const newData = {
 					day,
 					purchaseCounter,
 					dateNextPurchased: getFutureDate(nextEstimate),
 				};
-				console.log({ newData, daysSinceLastPurchase });
 				await updateItem(listToken, item.id, newData);
 				console.log('success');
 			}
