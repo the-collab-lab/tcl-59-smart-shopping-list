@@ -59,7 +59,6 @@ export function getItemData(snapshot) {
  */
 export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listId);
-	//const purchaseDate = new Date();
 	// TODO: Replace this call to console.log with the appropriate
 	// Firebase function, so this information is sent to your database!
 	return addDoc(listCollectionRef, {
@@ -73,17 +72,12 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(
-	listId,
-	itemId,
-	{ day, purchaseCounter, dateNextPurchased },
-) {
+export async function updateItem(listId, itemId, { day, purchaseCounter }) {
 	try {
 		const listCollectionRef = doc(db, listId, itemId);
 		return updateDoc(listCollectionRef, {
 			dateLastPurchased: day,
 			totalPurchases: purchaseCounter,
-			dateNextPurchased: dateNextPurchased,
 		});
 	} catch (error) {
 		console.error(error);
