@@ -1,17 +1,15 @@
 import './ListItem.css';
 import { updateItem } from '../api';
 import { sub } from 'date-fns';
-import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 export function ListItem({ item, listToken }) {
 	const handleUpdate = async (isChecked) => {
 		let day = Date.now();
 		let purchaseCounter = item.totalPurchases + 1;
-		let nextDay = calculateEstimate(item.dateNextPurchased);
-		console.log(nextDay);
+
 		try {
 			if (isChecked) {
-				const newData = { day, purchaseCounter, nextDay };
+				const newData = { day, purchaseCounter };
 				await updateItem(listToken, item.id, newData);
 				console.log('success');
 			}
