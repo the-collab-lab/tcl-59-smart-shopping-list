@@ -2,7 +2,7 @@ import './AddItem.css';
 import React, { useState } from 'react';
 import { addItem } from '../api';
 
-export function AddItem({ listToken }) {
+export function AddItem({ listToken, data }) {
 	const [itemData, setItemData] = useState({
 		itemName: '',
 		daysUntilNextPurchase: '7',
@@ -11,9 +11,9 @@ export function AddItem({ listToken }) {
 	const [errorMsg, setErrorMsg] = useState('');
 	const [isAdded, setIsAdded] = useState(false);
 
-	// this puts state in localStorage
 	function handleChange(event) {
 		const { name, value } = event.target;
+
 		setItemData((prevFormData) => {
 			return {
 				...prevFormData,
@@ -31,10 +31,32 @@ export function AddItem({ listToken }) {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+
+		const filtered = data.filter((item) =>
+			item.name
+				.toLowerCase()
+				.replace(/[^\w\s]/g, '') // remove punctuations
+				.split(' ')
+				.join('')
+				.includes(
+					itemData.itemName
+						.toLowerCase()
+						.replace(/[^\w\s]/g, '') // remove punctuations
+						.split(' ')
+						.join(''),
+				),
+		);
+
 		try {
-			await addItem(listToken, itemData);
-			setIsAdded(true);
-			setSuccess('Data added successfully');
+			if (itemData.itemName === '') {
+				setErrorMsg("Please add item's name");
+			} else if (filtered.length > 0) {
+				setErrorMsg('This item is already in your list');
+			} else {
+				await addItem(listToken, itemData);
+				setIsAdded(true);
+				setSuccess('Data added successfully');
+			}
 		} catch (error) {
 			setIsAdded(false);
 			setErrorMsg('Adding data failed');
@@ -50,63 +72,70 @@ export function AddItem({ listToken }) {
 	}
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<label htmlFor="itemName">Item name:</label>
-			<br />
-			<input
-				type="text"
-				id="itemName"
-				name="itemName"
-				value={itemData.itemName}
-				onChange={handleChange}
-			/>
+		<>
+			<section>
+				<span className={isAdded ? 'success' : 'failed'}>
+					{isAdded ? success : errorMsg}
+				</span>
+			</section>
 
-			<fieldset>
-				<legend>How soon will you buy this again</legend>
-				<label htmlFor="soon">
-					<input
-						type="radio"
-						id="soon"
-						name="daysUntilNextPurchase"
-						value={7}
-						checked={itemData.daysUntilNextPurchase === '7'}
-						onChange={handleChange}
-					/>
-					Soon
-				</label>
+			<form onSubmit={handleSubmit}>
+				<label htmlFor="itemName">Item name:</label>
 				<br />
+				<input
+					type="text"
+					id="itemName"
+					name="itemName"
+					value={itemData.itemName}
+					onChange={handleChange}
+				/>
 
-				<label htmlFor="kind-of-soon">
-					<input
-						type="radio"
-						id="kind-of-soon"
-						name="daysUntilNextPurchase"
-						value={14}
-						checked={itemData.daysUntilNextPurchase === '14'}
-						onChange={handleChange}
-					/>
-					kind of Soon
-				</label>
+				<fieldset>
+					<legend>How soon will you buy this again</legend>
+					<label htmlFor="soon">
+						<input
+							type="radio"
+							id="soon"
+							name="daysUntilNextPurchase"
+							value={7}
+							checked={itemData.daysUntilNextPurchase === '7'}
+							onChange={handleChange}
+						/>
+						Soon
+					</label>
+					<br />
+
+					<label htmlFor="kind-of-soon">
+						<input
+							type="radio"
+							id="kind-of-soon"
+							name="daysUntilNextPurchase"
+							value={14}
+							checked={itemData.daysUntilNextPurchase === '14'}
+							onChange={handleChange}
+						/>
+						kind of Soon
+					</label>
+					<br />
+
+					<label htmlFor="not-soon">
+						<input
+							type="radio"
+							id="not-soon"
+							name="daysUntilNextPurchase"
+							value={30}
+							checked={itemData.daysUntilNextPurchase === '30'}
+							onChange={handleChange}
+						/>
+						Not Soon
+					</label>
+				</fieldset>
+
 				<br />
-
-				<label htmlFor="not-soon">
-					<input
-						type="radio"
-						id="not-soon"
-						name="daysUntilNextPurchase"
-						value={30}
-						checked={itemData.daysUntilNextPurchase === '30'}
-						onChange={handleChange}
-					/>
-					Not Soon
-				</label>
-			</fieldset>
-
-			<br />
-			<div>
-				<button>Add Item</button>
-			</div>
-			<span>{isAdded ? success : errorMsg}</span>
-		</form>
+				<div>
+					<button>Add Item</button>
+				</div>
+			</form>
+		</>
 	);
 }

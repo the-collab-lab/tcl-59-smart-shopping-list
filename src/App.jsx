@@ -113,7 +113,7 @@ export function App() {
 						path="/add-item"
 						element={
 							listToken ? (
-								<AddItem listToken={listToken} />
+								<AddItem listToken={listToken} data={data} />
 							) : (
 								<Navigate to="/" />
 							)

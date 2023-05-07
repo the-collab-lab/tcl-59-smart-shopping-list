@@ -6,3 +6,19 @@ fieldset {
 	border: 0;
 	margin-top: 10px;
 }
+
+.success {
+	background-color: aquamarine;
+	color: black;
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+.failed {
+	background-color: darksalmon;
+	color: black;
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 1em;
+}
