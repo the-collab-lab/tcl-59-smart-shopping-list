@@ -1,6 +1,9 @@
 import './ListItem.css';
 import { updateItem } from '../api';
 import { sub } from 'date-fns';
+import { getFutureDate } from '../utils';
+import { getDaysBetweenDates } from '../utils/dates';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 export function ListItem({ item, listToken }) {
 	const handleUpdate = async (isChecked) => {
@@ -25,13 +28,12 @@ export function ListItem({ item, listToken }) {
 					daysSinceLastPurchase,
 					purchaseCounter,
 				);
-        
 				const newData = {
 					day,
 					purchaseCounter,
 					dateNextPurchased: getFutureDate(nextEstimate),
-				};	
-        
+				};
+
 				await updateItem(listToken, item.id, newData);
 				console.log('success');
 			}
@@ -44,9 +46,6 @@ export function ListItem({ item, listToken }) {
 		: sub(new Date(), { days: 1 });
 
 	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < milliseconds;
-
-
-	
 
 	return (
 		<li
