@@ -8,18 +8,23 @@ import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 export function ListItem({ item, listToken }) {
 	const handleUpdate = async (isChecked) => {
 		let day = new Date();
-
 		let purchaseCounter = item.totalPurchases + 1;
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
+		const dateNextPurchasedToDate = item.dateNextPurchased.toDate();
 		try {
 			if (isChecked) {
-				const lastEstimate = Number.isNaN(item.dateNextPurchased)
-					? undefined
-					: item.dateNextPurchased;
-				const daysSinceLastPurchase = item.dateLastPurchased
-					? getDaysBetweenDates(item.dateLastPurchased, new Date())
-					: 0;
+				const previousEstimate = getDaysBetweenDates(
+					dateNextPurchasedToDate,
+					dateLastPurchaseToDate,
+				);
+				const daysSinceLastPurchase = getDaysBetweenDates(
+					dateLastPurchaseToDate,
+					new Date(),
+				);
 				const nextEstimate = calculateEstimate(
-					lastEstimate,
+					previousEstimate,
 					daysSinceLastPurchase,
 					purchaseCounter,
 				);
@@ -36,11 +41,11 @@ export function ListItem({ item, listToken }) {
 			console.error(error);
 		}
 	};
-	const miliseconds = item.dateLastPurchased
+	const milliseconds = item.dateLastPurchased
 		? new Date(item.dateLastPurchased.toDate()).getTime()
 		: sub(new Date(), { days: 1 });
 
-	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < miliseconds;
+	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < milliseconds;
 
 	return (
 		<li
