@@ -10,3 +10,15 @@ const ONE_DAY_IN_MILLISECONDS = 86400000;
 export function getFutureDate(offset) {
 	return new Date(Date.now() + offset * ONE_DAY_IN_MILLISECONDS);
 }
+
+/**
+ *
+ * @param {firebase.firestore.Timestamp} startTimestamp
+ * @param {firebase.firestore.Timestamp} endTimestamp
+ * @returns {number} number of days between two dates.
+ */
+
+export function getDaysBetweenDates(date1, date2) {
+	const diffInMilliseconds = Math.abs(date1 - date2);
+	return Math.floor(diffInMilliseconds / ONE_DAY_IN_MILLISECONDS);
+}
