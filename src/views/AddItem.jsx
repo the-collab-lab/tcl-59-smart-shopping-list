@@ -35,7 +35,6 @@ export function AddItem({ listToken, data }) {
 		const filtered = data.filter((item) =>
 			item.name
 				.toLowerCase()
-				.replace(/[^\w\s]/g, '') // remove punctuations
 				.split(' ')
 				.join('')
 				.includes(
@@ -73,13 +72,13 @@ export function AddItem({ listToken, data }) {
 
 	return (
 		<>
-			<section>
+			<section className="alert">
 				<span className={isAdded ? 'success' : 'failed'}>
 					{isAdded ? success : errorMsg}
 				</span>
 			</section>
 
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} className="form">
 				<label htmlFor="itemName">Item name:</label>
 				<br />
 				<input

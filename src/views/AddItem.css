@@ -22,3 +22,13 @@ fieldset {
 	width: 100%;
 	margin-bottom: 1em;
 }
+
+.alert {
+	position: absolute;
+	max-width: 500px;
+	width: 100%;
+}
+
+.form {
+	margin-top: 5rem;
+}
