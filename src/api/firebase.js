@@ -98,7 +98,6 @@ export async function updateItem(
 
 export async function deleteItem(listId, itemId) {
 	try {
-		//const deleteDocument = doc(db, listId, itemId);
 		return await deleteDoc(doc(db, listId, itemId));
 	} catch (error) {
 		console.error(error);
