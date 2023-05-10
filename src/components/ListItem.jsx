@@ -6,6 +6,23 @@ import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 export function ListItem({ item, listToken }) {
+	const howSoonToBuy = () => {
+		const urgency = getDaysBetweenDates(
+			item.dateNextPurchased.toMillis(),
+			Date.now(),
+		);
+
+		if (urgency <= 7) {
+			return 'Soon';
+		} else if (urgency > 7 && urgency < 30) {
+			return 'Kind of soon';
+		} else if (urgency >= 30 && urgency < 60) {
+			return 'Not soon';
+		} else if (urgency >= 60) {
+			return 'Inactive';
+		}
+	};
+
 	const handleUpdate = async (isChecked) => {
 		let day = new Date();
 		let purchaseCounter = item.totalPurchases + 1;
@@ -13,6 +30,7 @@ export function ListItem({ item, listToken }) {
 			? item.dateLastPurchased.toDate()
 			: item.dateCreated.toDate();
 		const dateNextPurchasedToDate = item.dateNextPurchased.toDate();
+
 		try {
 			if (isChecked) {
 				const previousEstimate = getDaysBetweenDates(
@@ -66,6 +84,7 @@ export function ListItem({ item, listToken }) {
 				/>
 				{item.name}
 			</label>
+			<div className="UrgencyIndicator">{howSoonToBuy()}</div>
 		</li>
 	);
 }
