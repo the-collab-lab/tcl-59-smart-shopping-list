@@ -14,7 +14,37 @@
 	margin-left: 0.2em;
 }
 
-.UrgencyIndicator {
+.soon {
+	background-color: rgb(255, 217, 0);
+	margin-bottom: 1em;
+
+	border-radius: 8px;
+	padding: 0.1em;
+}
+
+.kindof {
+	background-color: orangered;
+	margin-bottom: 1em;
+	border-radius: 8px;
+	padding: 0.1em;
+}
+.notsoon {
+	background-color: green;
+	margin-bottom: 1em;
+	border-radius: 8px;
+	padding: 0.1em;
+}
+
+.inactive {
+	background-color: #808080;
+	margin-bottom: 1em;
+	border-radius: 8px;
+	padding: 0.1em;
+}
+
+.overdue {
 	background-color: red;
 	margin-bottom: 1em;
+	border-radius: 8px;
+	padding: 0.1em;
 }

@@ -4,22 +4,30 @@ import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
+import { differenceInDays } from 'date-fns';
 
 export function ListItem({ item, listToken }) {
 	const howSoonToBuy = () => {
-		const urgency = getDaysBetweenDates(
-			item.dateNextPurchased.toMillis(),
+		const urgency = differenceInDays(
+			item.dateNextPurchased.toDate(),
 			Date.now(),
 		);
 
-		if (urgency <= 7) {
-			return 'Soon';
-		} else if (urgency > 7 && urgency < 30) {
-			return 'Kind of soon';
-		} else if (urgency >= 30 && urgency < 60) {
-			return 'Not soon';
-		} else if (urgency >= 60) {
-			return 'Inactive';
+		const inactive = differenceInDays(
+			Date.now(),
+			item.dateLastPurchased.toDate(),
+		);
+
+		if (urgency <= 7 && inactive < 60) {
+			return <div className="soon">Soon</div>;
+		} else if (urgency > 7 && urgency < 30 && inactive < 60) {
+			return <div className="kindof">Kind of soon</div>;
+		} else if (urgency >= 30 && urgency < 60 && inactive < 60) {
+			return <div className="notsoon">Not soon</div>;
+		} else if (urgency <= 0 && inactive < 60) {
+			return <div className="overdue">Purchase overdue</div>;
+		} else if (inactive >= 60) {
+			return <div className="inactive">Inactive</div>;
 		}
 	};
 
@@ -84,7 +92,7 @@ export function ListItem({ item, listToken }) {
 				/>
 				{item.name}
 			</label>
-			<div className="UrgencyIndicator">{howSoonToBuy()}</div>
+			{howSoonToBuy()}
 		</li>
 	);
 }
