@@ -1,5 +1,5 @@
 import './ListItem.css';
-import { updateItem, deleteItem } from '../api';
+import { updateItem } from '../api';
 import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
@@ -13,10 +13,11 @@ export function ListItem({ item, listToken }) {
 			Date.now(),
 		);
 
-		const inactive = differenceInDays(
-			Date.now(),
-			item.dateLastPurchased.toDate(),
-		);
+		const datePurchasedOrCreated = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
+
+		const inactive = differenceInDays(Date.now(), datePurchasedOrCreated);
 
 		if (urgency <= 7 && inactive < 60) {
 			return <div className="soon">Soon</div>;
@@ -30,7 +31,6 @@ export function ListItem({ item, listToken }) {
 			return <div className="inactive">Inactive</div>;
 		}
 	};
-
 	const handleUpdate = async (isChecked) => {
 		let day = new Date();
 		let purchaseCounter = item.totalPurchases + 1;
@@ -72,11 +72,6 @@ export function ListItem({ item, listToken }) {
 		: sub(new Date(), { days: 1 });
 
 	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < milliseconds;
-	const handleDelete = async () => {
-		if (window.confirm('Are you sure you want to delete this item?')) {
-			await deleteItem(listToken, item.id);
-		}
-	};
 
 	return (
 		<li
@@ -97,7 +92,7 @@ export function ListItem({ item, listToken }) {
 				/>
 				{item.name}
 			</label>
-			<button onClick={handleDelete}>Delete</button>
+			{howSoonToBuy()}
 		</li>
 	);
 }
