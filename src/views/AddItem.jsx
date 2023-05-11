@@ -13,7 +13,6 @@ export function AddItem({ listToken, data }) {
 
 	function handleChange(event) {
 		const { name, value } = event.target;
-
 		setItemData((prevFormData) => {
 			return {
 				...prevFormData,

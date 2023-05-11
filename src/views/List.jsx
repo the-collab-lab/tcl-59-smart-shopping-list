@@ -2,14 +2,16 @@ import { useState } from 'react';
 import { ListItem } from '../components';
 import { Link } from 'react-router-dom';
 import BeatLoader from 'react-spinners/BeatLoader';
+import { comparePurchaseUrgency } from '../api';
 
 export function List({ data, isLoading, listToken }) {
-
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const filteredData = data.filter((item) =>
 		item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 	);
+
+	const sortedList = filteredData.sort(comparePurchaseUrgency);
 	if (isLoading) {
 		return <BeatLoader color="black" loading={isLoading} size={15} />;
 	}
@@ -34,7 +36,7 @@ export function List({ data, isLoading, listToken }) {
 						onChange={(e) => setSearchQuery(e.target.value)}
 					/>
 					<ul>
-						{filteredData.map((item) => (
+						{sortedList.map((item) => (
 							<ListItem listToken={listToken} key={item.id} item={item} />
 						))}
 					</ul>

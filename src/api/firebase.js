@@ -7,6 +7,8 @@ import {
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';
+import { getDaysBetweenDates } from '../utils';
+import { differenceInDays } from 'date-fns';
 
 /**
  * Subscribe to changes on a specific list in the Firestore database (listId), and run a callback (handleSuccess) every time a change happens.
@@ -103,3 +105,72 @@ export async function deleteItem() {
 	 */
 }
 
+export function comparePurchaseUrgency(itemA, itemB) {
+	// Inactive items
+	const dateLastPurchaseToMillisecondsA = itemA.dateLastPurchased
+		? itemA.dateLastPurchased.toMillis()
+		: itemA.dateCreated.toMillis();
+	const dateLastPurchaseToMillisecondsB = itemB.dateLastPurchased
+		? itemB.dateLastPurchased.toMillis()
+		: itemB.dateCreated.toMillis();
+
+	// Overdue items
+	const overdueItemA = differenceInDays(
+		itemA.dateNextPurchased.toMillis(),
+		Date.now(),
+	);
+	const overdueItemB = differenceInDays(
+		itemB.dateNextPurchased.toMillis(),
+		Date.now(),
+	);
+
+	// Other categories of item
+	const daysSinceLastPurchaseA = getDaysBetweenDates(
+		Date.now(),
+		dateLastPurchaseToMillisecondsA,
+	);
+	const daysSinceLastPurchaseB = getDaysBetweenDates(
+		Date.now(),
+		dateLastPurchaseToMillisecondsB,
+	);
+
+	const daysUntilPurchaseA = getDaysBetweenDates(
+		Date.now(),
+		itemA.dateNextPurchased.toMillis(),
+	);
+	const daysUntilPurchaseB = getDaysBetweenDates(
+		Date.now(),
+		itemB.dateNextPurchased.toMillis(),
+	);
+
+	const daysSinceLastPurchaseBoth =
+		daysSinceLastPurchaseA >= 60 && daysSinceLastPurchaseB >= 60;
+
+	const overdueItemsBoth = overdueItemA < 0 && overdueItemB < 0;
+
+	if (daysSinceLastPurchaseBoth && overdueItemsBoth) {
+		// both items are overdue, sort alphabetically
+		if (itemA.name < itemB.name) return -1;
+		if (itemA.name > itemB.name) return 1;
+		return 0;
+	} else if (daysSinceLastPurchaseBoth) {
+		// both items are inactive, sort alphabetically
+		if (itemA.name < itemB.name) return -1;
+		if (itemA.name > itemB.name) return 1;
+		return 0;
+	} else if (daysSinceLastPurchaseA >= 60) {
+		// itemA is inactive, sort it last
+		return 1;
+	} else if (daysSinceLastPurchaseB >= 60) {
+		// itemB is inactive, sort it last
+		return -1;
+	} else if (daysUntilPurchaseA === daysUntilPurchaseB) {
+		// items have same number of days until next purchase, sort alphabetically
+		if (itemA.name < itemB.name) return -1;
+		if (itemA.name > itemB.name) return 1;
+		return 0;
+	} else {
+		// sort by days until next purchase in ascending order
+		return daysUntilPurchaseA - daysUntilPurchaseB;
+	}
+}

@@ -1,8 +1,9 @@
 .ListItem {
-	align-items: baseline;
 	display: flex;
-	flex-direction: row;
+	align-items: center;
+	/* justify-content: space-between; */
 	font-size: 1.2em;
+	margin-bottom: 1em;
 }
 
 .ListItem-checkbox {
@@ -11,4 +12,67 @@
 
 .ListItem-label {
 	margin-left: 0.2em;
+}
+
+.progress-bar {
+	width: 200px;
+	height: 20px;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+	margin-left: 10px;
+}
+
+.progress_soon {
+	width: 90%;
+	height: 100%;
+	background-color: #4caf50;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
+}
+
+.progress_kind_of_soon {
+	width: 75%;
+	height: 100%;
+	background-color: #f5e610;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
+}
+
+.progress_not_soon {
+	width: 40%;
+	height: 100%;
+	background-color: #ff7c5b;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
+}
+
+.progress_overdue {
+	width: 100%;
+	height: 100%;
+	background-color: #e70c04;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
+}
+
+.progress_inactive {
+	width: 100%;
+	height: 100%;
+	background-color: #3a3939;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
 }
