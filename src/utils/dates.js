@@ -1,4 +1,6 @@
-const ONE_DAY_IN_MILLISECONDS = 86400000;
+import { differenceInDays } from 'date-fns';
+
+const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 
 /**
  * Get a new JavaScript Date that is `offset` days in the future.
@@ -19,6 +21,6 @@ export function getFutureDate(offset) {
  */
 
 export function getDaysBetweenDates(date1, date2) {
-	const diffInMilliseconds = Math.abs(date1 - date2);
-	return Math.floor(diffInMilliseconds / ONE_DAY_IN_MILLISECONDS);
+	const numOfDays = differenceInDays(date1, date2);
+	return numOfDays;
 }

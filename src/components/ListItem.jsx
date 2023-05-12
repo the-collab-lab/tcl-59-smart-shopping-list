@@ -1,29 +1,29 @@
 import './ListItem.css';
 import { updateItem } from '../api';
-import { sub, differenceInDays } from 'date-fns';
+import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 export function ListItem({ item, listToken }) {
-	const overdueItems = differenceInDays(
-		item.dateNextPurchased.toMillis(),
+	const overdueItems = getDaysBetweenDates(
+		item.dateNextPurchased.toDate(),
 		Date.now(),
 	);
 
 	const getProgressBarStat = () => {
-		const dateLastPurchaseToMilliseconds = item.dateLastPurchased
-			? item.dateLastPurchased.toMillis()
-			: item.dateCreated.toMillis();
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
 
 		const daysTillPurchase = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
 			Date.now(),
-			item.dateNextPurchased.toMillis(),
 		);
 
 		const dateSinceLastPurchase = getDaysBetweenDates(
 			Date.now(),
-			dateLastPurchaseToMilliseconds,
+			dateLastPurchaseToDate,
 		);
 
 		if (dateSinceLastPurchase >= 60) {
@@ -48,21 +48,21 @@ export function ListItem({ item, listToken }) {
 	};
 
 	const getProgressBarText = () => {
-		const overdueItems = differenceInDays(
-			item.dateNextPurchased.toMillis(),
+		const overdueItems = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
 			Date.now(),
 		);
-		const dateLastPurchaseToMilliseconds = item.dateLastPurchased
-			? item.dateLastPurchased.toMillis()
-			: item.dateCreated.toMillis();
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
 		const daysTillPurchase = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
 			Date.now(),
-			item.dateNextPurchased.toMillis(),
 		);
 
 		const dateSinceLastPurchase = getDaysBetweenDates(
 			Date.now(),
-			dateLastPurchaseToMilliseconds,
+			dateLastPurchaseToDate,
 		);
 
 		if (dateSinceLastPurchase >= 60) {
@@ -107,19 +107,19 @@ export function ListItem({ item, listToken }) {
 	const handleUpdate = async (isChecked) => {
 		let day = new Date();
 		let purchaseCounter = item.totalPurchases + 1;
-		const dateLastPurchaseToMilliseconds = item.dateLastPurchased
-			? item.dateLastPurchased.toMillis()
-			: item.dateCreated.toMillis();
-		const dateNextPurchasedToDate = item.dateNextPurchased.toMillis();
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
+		const dateNextPurchasedToDate = item.dateNextPurchased.toDate();
 		try {
 			if (isChecked) {
 				const previousEstimate = getDaysBetweenDates(
 					dateNextPurchasedToDate,
-					dateLastPurchaseToMilliseconds,
+					dateLastPurchaseToDate,
 				);
 				const daysSinceLastPurchase = getDaysBetweenDates(
-					dateLastPurchaseToMilliseconds,
 					new Date(),
+					dateLastPurchaseToDate,
 				);
 				const nextEstimate = calculateEstimate(
 					previousEstimate,

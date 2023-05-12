@@ -107,40 +107,40 @@ export async function deleteItem() {
 
 export function comparePurchaseUrgency(itemA, itemB) {
 	// Inactive items
-	const dateLastPurchaseToMillisecondsA = itemA.dateLastPurchased
-		? itemA.dateLastPurchased.toMillis()
-		: itemA.dateCreated.toMillis();
-	const dateLastPurchaseToMillisecondsB = itemB.dateLastPurchased
-		? itemB.dateLastPurchased.toMillis()
-		: itemB.dateCreated.toMillis();
+	const dateLastPurchaseToDateA = itemA.dateLastPurchased
+		? itemA.dateLastPurchased.toDate()
+		: itemA.dateCreated.toDate();
+	const dateLastPurchaseToDateB = itemB.dateLastPurchased
+		? itemB.dateLastPurchased.toDate()
+		: itemB.dateCreated.toDate();
 
 	// Overdue items
 	const overdueItemA = differenceInDays(
-		itemA.dateNextPurchased.toMillis(),
+		itemA.dateNextPurchased.toDate(),
 		Date.now(),
 	);
 	const overdueItemB = differenceInDays(
-		itemB.dateNextPurchased.toMillis(),
+		itemB.dateNextPurchased.toDate(),
 		Date.now(),
 	);
 
 	const daysSinceLastPurchaseA = getDaysBetweenDates(
 		Date.now(),
-		dateLastPurchaseToMillisecondsA,
+		dateLastPurchaseToDateA,
 	);
 	const daysSinceLastPurchaseB = getDaysBetweenDates(
 		Date.now(),
-		dateLastPurchaseToMillisecondsB,
+		dateLastPurchaseToDateB,
 	);
 
 	// Other categories of item
 	const daysUntilPurchaseA = getDaysBetweenDates(
+		itemA.dateNextPurchased.toDate(),
 		Date.now(),
-		itemA.dateNextPurchased.toMillis(),
 	);
 	const daysUntilPurchaseB = getDaysBetweenDates(
+		itemB.dateNextPurchased.toDate(),
 		Date.now(),
-		itemB.dateNextPurchased.toMillis(),
 	);
 
 	const daysSinceLastPurchaseBoth =
