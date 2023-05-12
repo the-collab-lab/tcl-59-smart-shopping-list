@@ -38,11 +38,11 @@ export function ListItem({ item, listToken }) {
 			return 'progress_soon';
 		}
 
-		if (daysTillPurchase > 7 && daysTillPurchase <= 30) {
+		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
 			return 'progress_kind_of_soon';
 		}
 
-		if (daysTillPurchase > 30 && daysTillPurchase < 60) {
+		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
 			return 'progress_not_soon';
 		}
 	};
@@ -77,11 +77,11 @@ export function ListItem({ item, listToken }) {
 			return 'Soon';
 		}
 
-		if (daysTillPurchase > 7 && daysTillPurchase <= 30) {
+		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
 			return 'kind of soon';
 		}
 
-		if (daysTillPurchase > 30 && daysTillPurchase < 60) {
+		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
 			return 'Not soon';
 		}
 	};
