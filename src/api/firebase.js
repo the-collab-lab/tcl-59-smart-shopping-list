@@ -124,7 +124,6 @@ export function comparePurchaseUrgency(itemA, itemB) {
 		Date.now(),
 	);
 
-	// Other categories of item
 	const daysSinceLastPurchaseA = getDaysBetweenDates(
 		Date.now(),
 		dateLastPurchaseToMillisecondsA,
@@ -134,6 +133,7 @@ export function comparePurchaseUrgency(itemA, itemB) {
 		dateLastPurchaseToMillisecondsB,
 	);
 
+	// Other categories of item
 	const daysUntilPurchaseA = getDaysBetweenDates(
 		Date.now(),
 		itemA.dateNextPurchased.toMillis(),
