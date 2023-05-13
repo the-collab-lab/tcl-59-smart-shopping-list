@@ -1,6 +1,6 @@
 import './ListItem.css';
 import { updateItem } from '../api';
-import { sub, differenceInDays } from 'date-fns';
+import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
