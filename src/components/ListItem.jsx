@@ -1,5 +1,5 @@
 import './ListItem.css';
-import { updateItem } from '../api';
+import { updateItem, deleteItem } from '../api';
 import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
@@ -46,6 +46,11 @@ export function ListItem({ item, listToken }) {
 		: sub(new Date(), { days: 1 });
 
 	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < milliseconds;
+	const handleDelete = async () => {
+		if (window.confirm('Are you sure you want to delete this item?')) {
+			await deleteItem(listToken, item.id);
+		}
+	};
 
 	return (
 		<li
@@ -54,7 +59,7 @@ export function ListItem({ item, listToken }) {
 				isRecentlyPurchased ? 'You recently purchased this item' : undefined
 			}
 		>
-			<label htmlFor={item.id}>
+			<label className="ListItem-label" htmlFor={item.id}>
 				<input
 					type="checkbox"
 					id={item.id}
@@ -66,6 +71,7 @@ export function ListItem({ item, listToken }) {
 				/>
 				{item.name}
 			</label>
+			<button onClick={handleDelete}>Delete</button>
 		</li>
 	);
 }
