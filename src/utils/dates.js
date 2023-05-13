@@ -1,6 +1,6 @@
 import { differenceInDays } from 'date-fns';
 
-const ONE_DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
+const ONE_DAY_IN_MILLISECONDS = 86400000;
 
 /**
  * Get a new JavaScript Date that is `offset` days in the future.

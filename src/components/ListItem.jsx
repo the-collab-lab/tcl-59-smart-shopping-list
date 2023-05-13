@@ -1,6 +1,6 @@
 import './ListItem.css';
 import { updateItem } from '../api';
-import { sub } from 'date-fns';
+import { sub, differenceInDays } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
@@ -8,7 +8,7 @@ import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 export function ListItem({ item, listToken }) {
 	const overdueItems = getDaysBetweenDates(
 		item.dateNextPurchased.toDate(),
-		Date.now(),
+		new Date().setHours(0, 0, 0, 0),
 	);
 
 	const getProgressBarStat = () => {
@@ -18,11 +18,11 @@ export function ListItem({ item, listToken }) {
 
 		const daysTillPurchase = getDaysBetweenDates(
 			item.dateNextPurchased.toDate(),
-			Date.now(),
+			new Date().setHours(0, 0, 0, 0),
 		);
 
 		const dateSinceLastPurchase = getDaysBetweenDates(
-			Date.now(),
+			new Date().setHours(0, 0, 0, 0),
 			dateLastPurchaseToDate,
 		);
 
@@ -50,18 +50,18 @@ export function ListItem({ item, listToken }) {
 	const getProgressBarText = () => {
 		const overdueItems = getDaysBetweenDates(
 			item.dateNextPurchased.toDate(),
-			Date.now(),
+			new Date().setHours(0, 0, 0, 0),
 		);
 		const dateLastPurchaseToDate = item.dateLastPurchased
 			? item.dateLastPurchased.toDate()
 			: item.dateCreated.toDate();
 		const daysTillPurchase = getDaysBetweenDates(
 			item.dateNextPurchased.toDate(),
-			Date.now(),
+			new Date().setHours(0, 0, 0, 0),
 		);
 
 		const dateSinceLastPurchase = getDaysBetweenDates(
-			Date.now(),
+			new Date().setHours(0, 0, 0, 0),
 			dateLastPurchaseToDate,
 		);
 
