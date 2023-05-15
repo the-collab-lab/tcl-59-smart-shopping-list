@@ -156,8 +156,8 @@ export function comparePurchaseUrgency(itemA, itemB) {
 	const overdueItemsBoth = overdueItemA < 0 && overdueItemB < 0;
 
 	const compare = () => {
-		if (itemA.toLowerCase().name < itemB.toLowerCase().name) return -1;
-		if (itemA.toLowerCase().name > itemB.toLowerCase().name) return 1;
+		if (itemA.name.toLowerCase() < itemB.name.toLowerCase()) return -1;
+		if (itemA.name.toLowerCase() > itemB.name.toLowerCase()) return 1;
 		return 0;
 	};
 
