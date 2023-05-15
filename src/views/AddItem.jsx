@@ -89,7 +89,7 @@ export function AddItem({ listToken, data }) {
 				/>
 
 				<fieldset>
-					<legend>How soon will you buy this again</legend>
+					<legend>How soon will you buy this again?</legend>
 					<label htmlFor="soon">
 						<input
 							type="radio"
@@ -112,7 +112,7 @@ export function AddItem({ listToken, data }) {
 							checked={itemData.daysUntilNextPurchase === '14'}
 							onChange={handleChange}
 						/>
-						kind of Soon
+						Kind of soon
 					</label>
 					<br />
 
@@ -125,13 +125,13 @@ export function AddItem({ listToken, data }) {
 							checked={itemData.daysUntilNextPurchase === '30'}
 							onChange={handleChange}
 						/>
-						Not Soon
+						Not soon
 					</label>
 				</fieldset>
 
 				<br />
 				<div>
-					<button>Add Item</button>
+					<button>Add item</button>
 				</div>
 			</form>
 		</>

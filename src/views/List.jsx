@@ -26,7 +26,7 @@ export function List({ data, isLoading, listToken }) {
 				</>
 			) : (
 				<div>
-					<label htmlFor="filter">Filter Items</label>
+					<label htmlFor="filter">Filter items</label>
 					<br />
 					<input
 						type="search"

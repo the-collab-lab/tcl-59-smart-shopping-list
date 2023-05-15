@@ -78,7 +78,7 @@ export function ListItem({ item, listToken }) {
 		}
 
 		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
-			return 'kind of soon';
+			return 'Kind of soon';
 		}
 
 		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
@@ -90,7 +90,7 @@ export function ListItem({ item, listToken }) {
 		if (getProgressBarText() === 'Soon') {
 			return 'You may need to buy this item within 7 days';
 		}
-		if (getProgressBarText() === 'kind of soon') {
+		if (getProgressBarText() === 'Kind of soon') {
 			return 'You may need to buy this item within 30 days';
 		}
 		if (getProgressBarText() === 'Not soon') {
