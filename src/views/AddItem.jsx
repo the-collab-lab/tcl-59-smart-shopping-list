@@ -112,7 +112,7 @@ export function AddItem({ listToken, data }) {
 							checked={itemData.daysUntilNextPurchase === '14'}
 							onChange={handleChange}
 						/>
-						kind of Soon
+						Kind of Soon
 					</label>
 					<br />
 
