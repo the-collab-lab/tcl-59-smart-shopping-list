@@ -148,16 +148,18 @@ export function comparePurchaseUrgency(itemA, itemB) {
 
 	const overdueItemsBoth = overdueItemA < 0 && overdueItemB < 0;
 
+	const compare = () => {
+		if (itemA.toLowerCase().name < itemB.toLowerCase().name) return -1;
+		if (itemA.toLowerCase().name > itemB.toLowerCase().name) return 1;
+		return 0;
+	};
+
 	if (daysSinceLastPurchaseBoth && overdueItemsBoth) {
 		// both items are overdue, sort alphabetically
-		if (itemA.name < itemB.name) return -1;
-		if (itemA.name > itemB.name) return 1;
-		return 0;
+		return compare();
 	} else if (daysSinceLastPurchaseBoth) {
 		// both items are inactive, sort alphabetically
-		if (itemA.name < itemB.name) return -1;
-		if (itemA.name > itemB.name) return 1;
-		return 0;
+		return compare();
 	} else if (daysSinceLastPurchaseA >= 60) {
 		// itemA is inactive, sort it last
 		return 1;
@@ -166,9 +168,7 @@ export function comparePurchaseUrgency(itemA, itemB) {
 		return -1;
 	} else if (daysUntilPurchaseA === daysUntilPurchaseB) {
 		// items have same number of days until next purchase, sort alphabetically
-		if (itemA.name < itemB.name) return -1;
-		if (itemA.name > itemB.name) return 1;
-		return 0;
+		return compare();
 	} else {
 		// sort by days until next purchase in ascending order
 		return daysUntilPurchaseA - daysUntilPurchaseB;
