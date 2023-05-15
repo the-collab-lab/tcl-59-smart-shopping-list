@@ -1,42 +1,117 @@
 import './ListItem.css';
-import { updateItem } from '../api';
+import { deleteItem, updateItem } from '../api';
 import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
-import { differenceInDays } from 'date-fns';
 
 export function ListItem({ item, listToken }) {
-	const howSoonToBuy = () => {
-		const urgency = differenceInDays(
-			item.dateNextPurchased.toDate(),
-			Date.now(),
-		);
+	const overdueItems = getDaysBetweenDates(
+		item.dateNextPurchased.toDate(),
+		new Date().setHours(0, 0, 0, 0),
+	);
 
-		const datePurchasedOrCreated = item.dateLastPurchased
-			? item.dateLastPurchased.toDate()
-			: item.dateCreated.toDate();
-
-		const inactive = differenceInDays(Date.now(), datePurchasedOrCreated);
-
-		if (urgency <= 7 && inactive < 60) {
-			return <div className="soon">Soon</div>;
-		} else if (urgency > 7 && urgency < 30 && inactive < 60) {
-			return <div className="kindof">Kind of soon</div>;
-		} else if (urgency >= 30 && urgency < 60 && inactive < 60) {
-			return <div className="notsoon">Not soon</div>;
-		} else if (urgency <= 0 && inactive < 60) {
-			return <div className="overdue">Purchase overdue</div>;
-		} else if (inactive >= 60) {
-			return <div className="inactive">Inactive</div>;
-		}
-	};
-	const handleUpdate = async (isChecked) => {
-		let day = new Date();
-		let purchaseCounter = item.totalPurchases + 1;
+	const getProgressBarStat = () => {
 		const dateLastPurchaseToDate = item.dateLastPurchased
 			? item.dateLastPurchased.toDate()
 			: item.dateCreated.toDate();
+
+		const daysTillPurchase = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
+			new Date().setHours(0, 0, 0, 0),
+		);
+
+		const dateSinceLastPurchase = getDaysBetweenDates(
+			new Date().setHours(0, 0, 0, 0),
+			dateLastPurchaseToDate,
+		);
+
+		if (dateSinceLastPurchase >= 60) {
+			return 'progress_inactive';
+		}
+
+		if (dateSinceLastPurchase < 60 && overdueItems < 0) {
+			return 'progress_overdue';
+		}
+
+		if (daysTillPurchase <= 7) {
+			return 'progress_soon';
+		}
+
+		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
+			return 'progress_kind_of_soon';
+		}
+
+		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
+			return 'progress_not_soon';
+		}
+	};
+
+	const getProgressBarText = () => {
+		const overdueItems = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
+			new Date().setHours(0, 0, 0, 0),
+		);
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
+		const daysTillPurchase = getDaysBetweenDates(
+			item.dateNextPurchased.toDate(),
+			new Date().setHours(0, 0, 0, 0),
+		);
+
+		const dateSinceLastPurchase = getDaysBetweenDates(
+			new Date().setHours(0, 0, 0, 0),
+			dateLastPurchaseToDate,
+		);
+
+		if (dateSinceLastPurchase >= 60) {
+			return 'Inactive';
+		}
+
+		if (dateSinceLastPurchase < 60 && overdueItems < 0) {
+			return 'Overdue';
+		}
+
+		if (daysTillPurchase <= 7) {
+			return 'Soon';
+		}
+
+		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
+			return 'Kind of soon';
+		}
+
+		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
+			return 'Not soon';
+		}
+	};
+
+	const addTitle = () => {
+		if (getProgressBarText() === 'Soon') {
+			return 'You may need to buy this item within 7 days';
+		}
+		if (getProgressBarText() === 'Kind of soon') {
+			return 'You may need to buy this item within 30 days';
+		}
+		if (getProgressBarText() === 'Not soon') {
+			return 'You may need to buy this item within 60 days';
+		}
+		if (getProgressBarText() === 'Inactive') {
+			return "It's over 60 days since you last purchased this item";
+		}
+		if (getProgressBarText() === 'Overdue') {
+			return 'This item is due for purchase!';
+		}
+	};
+
+	const handleUpdate = async (isChecked) => {
+		let day = new Date();
+		let purchaseCounter = item.totalPurchases + 1;
+
+		const dateLastPurchaseToDate = item.dateLastPurchased
+			? item.dateLastPurchased.toDate()
+			: item.dateCreated.toDate();
+
 		const dateNextPurchasedToDate = item.dateNextPurchased.toDate();
 
 		try {
@@ -46,8 +121,8 @@ export function ListItem({ item, listToken }) {
 					dateLastPurchaseToDate,
 				);
 				const daysSinceLastPurchase = getDaysBetweenDates(
-					dateLastPurchaseToDate,
 					new Date(),
+					dateLastPurchaseToDate,
 				);
 				const nextEstimate = calculateEstimate(
 					previousEstimate,
@@ -73,6 +148,12 @@ export function ListItem({ item, listToken }) {
 
 	const isRecentlyPurchased = sub(new Date(), { days: 1 }) < milliseconds;
 
+	const handleDelete = async () => {
+		if (window.confirm('Are you sure you want to delete this item?')) {
+			await deleteItem(listToken, item.id);
+		}
+	};
+
 	return (
 		<li
 			className="ListItem"
@@ -80,7 +161,7 @@ export function ListItem({ item, listToken }) {
 				isRecentlyPurchased ? 'You recently purchased this item' : undefined
 			}
 		>
-			<label className="ListItem-label" htmlFor={item.id}>
+			<label htmlFor={item.id}>
 				<input
 					type="checkbox"
 					id={item.id}
@@ -92,7 +173,14 @@ export function ListItem({ item, listToken }) {
 				/>
 				{item.name}
 			</label>
-			{howSoonToBuy()}
+
+			<aside className="progress-bar" title={addTitle()}>
+				<div className={getProgressBarStat()}>
+					<small>{getProgressBarText()}</small>
+				</div>
+			</aside>
+
+			<button onClick={handleDelete}>Delete</button>
 		</li>
 	);
 }

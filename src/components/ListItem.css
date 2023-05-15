@@ -1,51 +1,74 @@
 .ListItem {
-	align-items: baseline;
 	display: flex;
-	flex-direction: row;
-	font-size: 1.2em;
+	align-items: center;
 	justify-content: space-between;
+	font-size: 1.2em;
+	margin-bottom: 1em;
 }
 
 .ListItem-checkbox {
 	accent-color: var(--color-accent);
 }
 
-.ListItem-label {
-	margin-left: 0.2em;
-	margin-right: 8em;
+.progress-bar {
+	width: 200px;
+	height: 20px;
+	background-color: #f2f2f2;
+	border-radius: 10px;
+	margin-left: 10px;
 }
 
-.soon {
-	background-color: rgb(255, 217, 0);
-	margin-bottom: 1em;
-
-	border-radius: 8px;
-	padding: 0.1em;
+.progress_soon {
+	width: 90%;
+	height: 100%;
+	background-color: #4caf50;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
 }
 
-.kindof {
-	background-color: orangered;
-	margin-bottom: 1em;
-	border-radius: 8px;
-	padding: 0.1em;
-}
-.notsoon {
-	background-color: green;
-	margin-bottom: 1em;
-	border-radius: 8px;
-	padding: 0.1em;
+.progress_kind_of_soon {
+	width: 75%;
+	height: 100%;
+	background-color: #f5e610;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
 }
 
-.inactive {
-	background-color: #808080;
-	margin-bottom: 1em;
-	border-radius: 8px;
-	padding: 0.1em;
+.progress_not_soon {
+	width: 40%;
+	height: 100%;
+	background-color: #ff7c5b;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
 }
 
-.overdue {
-	background-color: red;
-	margin-bottom: 1em;
-	border-radius: 8px;
-	padding: 0.1em;
+.progress_overdue {
+	width: 100%;
+	height: 100%;
+	background-color: #e70c04;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
+}
+
+.progress_inactive {
+	width: 100%;
+	height: 100%;
+	background-color: #3a3939;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: width 0.5s ease-in-out;
 }
