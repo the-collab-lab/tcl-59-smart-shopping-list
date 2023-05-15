@@ -15,7 +15,7 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 				<button onClick={handleCreateList}>Create List</button>
 			</Link>
 			<div className="container">
-				<p>Join an existing shopping list by entering a three word token.</p>
+				<p>Join an existing shopping list by entering a three word token</p>
 				<form onSubmit={handleSubmit}>
 					<label htmlFor="listToken">Enter List Token:</label>
 					<br />
