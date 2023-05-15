@@ -78,7 +78,7 @@ export function ListItem({ item, listToken }) {
 		}
 
 		if (daysTillPurchase > 7 && daysTillPurchase < 30) {
-			return 'kind of soon';
+			return 'Kind of soon';
 		}
 
 		if (daysTillPurchase >= 30 && daysTillPurchase < 60) {
