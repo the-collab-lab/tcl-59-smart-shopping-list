@@ -15,7 +15,7 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 	return (
 		<main className="flex flex-col justify-between">
 			<header>
-				<h1 className="font-bold text-[3rem]">SmartBasket</h1>
+				<h1 className="font-bold text-[3rem] text-black">SmartBasket</h1>
 			</header>
 			<div className="w-96 h-96 m-auto flex flex-col items-center">
 				<img src={basket} alt="" />

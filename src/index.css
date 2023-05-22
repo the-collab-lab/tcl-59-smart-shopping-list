@@ -19,7 +19,7 @@
 	--color-error: var(--color-red);
 	--color-text: var(--color-white);
 
-	background-color: pink;
+	background-color: #f8998b;
 }
 
 @media screen and (prefers-color-scheme: light) {
