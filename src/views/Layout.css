@@ -18,7 +18,7 @@
 }
 
 .Layout-header {
-	background-color: var(--color-bg);
+	/* background-color: var(--color-bg); */
 	position: sticky;
 	text-align: center;
 	top: 0;

@@ -1,4 +1,3 @@
-import './AddItem.css';
 import React, { useState } from 'react';
 import { addItem } from '../api';
 
@@ -88,8 +87,10 @@ export function AddItem({ listToken, data }) {
 					onChange={handleChange}
 				/>
 
-				<fieldset>
-					<legend>How soon will you buy this again?</legend>
+				<fieldset className="fieldsetClass">
+					<legend className="text-green-400">
+						How soon will you buy this again?
+					</legend>
 					<label htmlFor="soon">
 						<input
 							type="radio"

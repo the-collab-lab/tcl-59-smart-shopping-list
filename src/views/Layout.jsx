@@ -1,7 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
 
-import './Layout.css';
-
 /**
  * TODO: The links defined in this file don't work!
  *
@@ -13,17 +11,17 @@ import './Layout.css';
 export function Layout() {
 	return (
 		<>
-			<div className="Layout">
+			<div className="layout">
 				<header className="Layout-header">
-					<h1>Smart shopping list</h1>
+					<h1>SmartBasket</h1>
 				</header>
 				<main className="Layout-main">
 					<Outlet />
 				</main>
 				<nav className="Nav">
-					<NavLink to="/" className="Nav-link">
+					{/* <NavLink to="/" className="Nav-link">
 						Home
-					</NavLink>
+					</NavLink> */}
 					<NavLink to="/list" className="Nav-link">
 						List
 					</NavLink>
