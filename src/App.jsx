@@ -84,21 +84,21 @@ export function App() {
 	return (
 		<Router>
 			<Routes>
+				<Route
+					index
+					element={
+						listToken ? (
+							<Navigate to="/list" />
+						) : (
+							<Home
+								handleCreateList={handleCreateList}
+								handleJoinList={handleJoinList}
+								errorMsg={errorMsg}
+							/>
+						)
+					}
+				/>
 				<Route path="/" element={<Layout />}>
-					<Route
-						index
-						element={
-							listToken ? (
-								<Navigate to="/list" />
-							) : (
-								<Home
-									handleCreateList={handleCreateList}
-									handleJoinList={handleJoinList}
-									errorMsg={errorMsg}
-								/>
-							)
-						}
-					/>
 					<Route
 						path="/list"
 						element={

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	--color-black: hsla(220, 13%, 18%, 1);
 	--color-gray-dark: hsla(220, 13%, 25%, 1);
@@ -14,6 +18,8 @@
 	--color-bg-well: var(--color-gray-dark);
 	--color-error: var(--color-red);
 	--color-text: var(--color-white);
+
+	background-color: pink;
 }
 
 @media screen and (prefers-color-scheme: light) {
@@ -53,8 +59,7 @@ html {
 }
 
 body {
-	background-color: var(--color-bg);
-	color: var(--color-text);
+	/* color: var(--color-text); */
 	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
 		helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 	font-size: 1.6rem;
@@ -66,12 +71,12 @@ body {
 }
 
 code {
-	--color-bg: var(--color-gray-dark);
-	--color-text: var(--color-accent);
+	/* --color-bg: var(--color-gray-dark); */
+	/* --color-text: var(--color-accent); */
 
-	background-color: var(--color-bg);
+	/* background-color: var(--color-bg); */
 	border-radius: 4px;
-	color: var(--color-text);
+	/* color: var(--color-text); */
 	display: inline-block;
 	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
 		monospace;
@@ -81,14 +86,45 @@ code {
 
 @media screen and (prefers-color-scheme: light) {
 	code {
-		--color-bg: var(--color-gray-light);
+		/* --color-bg: var(--color-gray-light); */
 	}
 }
 
 :root.theme-light code {
-	--color-bg: var(--color-gray-light);
+	/* --color-bg: var(--color-gray-light); */
 }
 
 ul {
 	padding: 0;
+}
+
+.boxShadow {
+	box-shadow: 0 30px 28px hsl(0deg 0% 0% / 0.3);
+}
+
+@layer components {
+	.layout {
+		@apply flex flex-col m-auto max-w-[100vw] pt-4;
+	}
+	.Layout-main {
+		@apply m-auto max-w-[95vw] w-[95%];
+	}
+	.Nav {
+		@apply bg-white flex items-center justify-around mt-auto sticky text-black h-60 w-full rounded-tl-[10rem];
+	}
+	.form {
+		@apply mt-11;
+	}
+	.fieldsetClass {
+		@apply border-0 mt-[10px];
+	}
+	.success {
+		@apply bg-green-300 text-black inline-block w-full mb-4;
+	}
+	.failed {
+		@apply bg-red-800 text-white inline-block w-full mb-4;
+	}
+	.alert {
+		@apply absolute max-w-[500px] w-full;
+	}
 }
