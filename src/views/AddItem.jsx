@@ -132,7 +132,7 @@ export function AddItem({ listToken, data }) {
 
 				<br />
 				<div>
-					<button>Add item</button>
+					<button className="bg-bgButton">Add item</button>
 				</div>
 			</form>
 		</>

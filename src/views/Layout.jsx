@@ -1,4 +1,7 @@
 import { Outlet, NavLink } from 'react-router-dom';
+import { FaListUl } from 'react-icons/fa';
+import { IoMdAdd } from 'react-icons/io';
+import basket from '../assets/basket1.png';
 
 /**
  * TODO: The links defined in this file don't work!
@@ -12,8 +15,9 @@ export function Layout() {
 	return (
 		<>
 			<div className="layout">
-				<header className="Layout-header">
-					<h1>SmartBasket</h1>
+				<header className="flex">
+					<img src={basket} alt="" width={50} height={40} />
+					<h1 className="font-bold text-[3rem] text-black">SmartBasket</h1>
 				</header>
 				<main className="Layout-main">
 					<Outlet />
@@ -23,10 +27,10 @@ export function Layout() {
 						Home
 					</NavLink> */}
 					<NavLink to="/list" className="Nav-link">
-						List
+						<FaListUl />
 					</NavLink>
 					<NavLink to="/add-item" className="Nav-link">
-						Add Item
+						<IoMdAdd className="text-3xl" />
 					</NavLink>
 				</nav>
 			</div>
