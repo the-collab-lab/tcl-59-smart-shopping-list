@@ -1,6 +1,6 @@
 //import React from 'react';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getItem } from '../api/firebase';
 
 const ItemDetail = ({ listToken }) => {
@@ -43,6 +43,9 @@ const ItemDetail = ({ listToken }) => {
 						: 'N/A'}
 				</li>
 			</ul>
+			<Link to="/list" className="mt-4 text-blue-500">
+				Back to List
+			</Link>
 		</div>
 	);
 };
