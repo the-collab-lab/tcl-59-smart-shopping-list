@@ -19,7 +19,7 @@
 	--color-error: var(--color-red);
 	--color-text: var(--color-white);
 
-	background-color: #f8998b;
+	/* background-color: #f8998b; */
 }
 
 @media screen and (prefers-color-scheme: light) {
@@ -104,16 +104,22 @@ ul {
 
 @layer components {
 	.layout {
-		@apply flex flex-col m-auto max-w-[100vw] pt-4;
+		@apply bg-white flex flex-col m-auto max-w-[100vw] pt-4;
 	}
 	.Layout-main {
 		@apply m-auto max-w-[95vw] w-[95%];
 	}
 	.Nav {
-		@apply bg-white flex items-center justify-around mt-auto sticky text-black h-60 w-full rounded-tl-[10rem];
+		@apply flex items-center justify-between mt-auto sticky text-black h-60 w-full;
+	}
+	.Nav-link {
+		@apply w-1/2 flex items-center justify-center;
+	}
+	.Nav-link.active {
+		@apply bg-bgHome h-full rounded-tl-[10rem];
 	}
 	.form {
-		@apply mt-11;
+		@apply mt-11 text-black;
 	}
 	.fieldsetClass {
 		@apply border-0 mt-[10px];

@@ -5,6 +5,7 @@ import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { Link } from 'react-router-dom';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 export function ListItem({ item, listToken }) {
 	const overdueItems = getDaysBetweenDates(
@@ -162,7 +163,7 @@ export function ListItem({ item, listToken }) {
 				isRecentlyPurchased ? 'You recently purchased this item' : undefined
 			}
 		>
-			<label htmlFor={item.id}>
+			<label htmlFor={item.id} className="w-60 font-bold">
 				<input
 					type="checkbox"
 					id={item.id}
@@ -176,17 +177,19 @@ export function ListItem({ item, listToken }) {
 					to={`/item/${item.id}`}
 					style={{ color: 'inherit', textDecoration: 'inherit' }}
 				>
-					<span>{item.name}</span>
+					{item.name}
 				</Link>
 			</label>
 
 			<aside className="progress-bar" title={addTitle()}>
 				<div className={getProgressBarStat()}>
-					<small>{getProgressBarText()}</small>
+					<small className="text-white">{getProgressBarText()}</small>
 				</div>
 			</aside>
 
-			<button onClick={handleDelete}>Delete</button>
+			<div className="pl-4">
+				<RiDeleteBin6Line onClick={handleDelete} className="cursor-pointer" />
+			</div>
 		</li>
 	);
 }
