@@ -4,6 +4,7 @@ import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
+import { Link } from 'react-router-dom';
 
 export function ListItem({ item, listToken }) {
 	const overdueItems = getDaysBetweenDates(
@@ -171,7 +172,12 @@ export function ListItem({ item, listToken }) {
 						handleUpdate(e.target.checked);
 					}}
 				/>
-				{item.name}
+				<Link
+					to={`/item/${item.id}`}
+					style={{ color: 'inherit', textDecoration: 'inherit' }}
+				>
+					<span>{item.name}</span>
+				</Link>
 			</label>
 
 			<aside className="progress-bar" title={addTitle()}>
