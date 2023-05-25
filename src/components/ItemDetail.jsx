@@ -25,9 +25,9 @@ const ItemDetail = ({ listToken }) => {
 			<img
 				src="https://app.ineedtobuy.xyz/img/groceries.svg"
 				alt="Placeholder"
-				className="w-64 h-64 mb-4"
+				className="w-64 h-64 mb-20"
 			/>
-			<h1 className="text-4xl font-bold capitalize mb-4">{details.name}</h1>
+			<h1 className="text-4xl font-bold capitalize mb-10">{details.name}</h1>
 			<ul className="list-disc text-2x1 text-left">
 				<li>Total Purchases: {details.totalPurchases}</li>
 				<li>
