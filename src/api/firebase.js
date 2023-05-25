@@ -5,6 +5,7 @@ import {
 	doc,
 	updateDoc,
 	deleteDoc,
+	getDoc,
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';
@@ -179,5 +180,23 @@ export function comparePurchaseUrgency(itemA, itemB) {
 	} else {
 		// sort by days until next purchase in ascending order
 		return daysUntilPurchaseA - daysUntilPurchaseB;
+	}
+}
+
+export async function getItem(listToken, itemId) {
+	try {
+		const itemRef = doc(db, listToken, itemId);
+		const itemDoc = await getDoc(itemRef);
+
+		if (itemDoc.exists()) {
+			const itemData = itemDoc.data();
+			itemData.id = itemDoc.id;
+			return itemData;
+		} else {
+			return null;
+		}
+	} catch (error) {
+		console.error('Error getting item:', error);
+		return null;
 	}
 }
