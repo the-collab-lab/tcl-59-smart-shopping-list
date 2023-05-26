@@ -46,13 +46,13 @@ export function AddItem({ listToken, data }) {
 
 		try {
 			if (itemData.itemName === '') {
-				setErrorMsg("Please add item's name");
+				setErrorMsg("Please add item's name!");
 			} else if (filtered.length > 0) {
-				setErrorMsg('This item is already in your list');
+				setErrorMsg('This item is already in your list!');
 			} else {
 				await addItem(listToken, itemData);
 				setIsAdded(true);
-				setSuccess('Data added successfully');
+				setSuccess('Data added successfully!');
 			}
 		} catch (error) {
 			setIsAdded(false);
@@ -70,71 +70,91 @@ export function AddItem({ listToken, data }) {
 
 	return (
 		<>
-			<section className="alert">
-				<span className={isAdded ? 'success' : 'failed'}>
-					{isAdded ? success : errorMsg}
-				</span>
-			</section>
+			<div className="flex items-center max-w-[500px] my-0 mx-auto">
+				<section className="alert">
+					<span className={isAdded ? 'success' : 'failed'}>
+						{isAdded ? success : errorMsg}
+					</span>
+				</section>
 
-			<form onSubmit={handleSubmit} className="form">
-				<label htmlFor="itemName">Item name:</label>
-				<br />
-				<input
-					type="text"
-					id="itemName"
-					name="itemName"
-					value={itemData.itemName}
-					onChange={handleChange}
-				/>
-
-				<fieldset className="fieldsetClass">
-					<legend className="text-green-400">
-						How soon will you buy this again?
-					</legend>
-					<label htmlFor="soon">
-						<input
-							type="radio"
-							id="soon"
-							name="daysUntilNextPurchase"
-							value={7}
-							checked={itemData.daysUntilNextPurchase === '7'}
-							onChange={handleChange}
-						/>
-						Soon
+				<form onSubmit={handleSubmit} className="form">
+					<label
+						htmlFor="itemName"
+						className=" font-bold text-5xl text-yellow-500"
+					>
+						Item name:
 					</label>
 					<br />
+					<input
+						type="text"
+						id="itemName"
+						name="itemName"
+						value={itemData.itemName}
+						onChange={handleChange}
+						className="w-full bg-inherit border-2 rounded-2xl border-#BDBEBD h-[30px] text-black px-4 mb-4 mt-2"
+					/>
 
-					<label htmlFor="kind-of-soon">
-						<input
-							type="radio"
-							id="kind-of-soon"
-							name="daysUntilNextPurchase"
-							value={14}
-							checked={itemData.daysUntilNextPurchase === '14'}
-							onChange={handleChange}
-						/>
-						Kind of soon
-					</label>
+					<fieldset className="fieldsetClass flex">
+						<legend className="font-bold text-3xl my-5 pt-10">
+							How soon will you buy this again?
+						</legend>
+						<label htmlFor="soon" className="custom-radio-btn">
+							<div className="radio">
+								<input
+									type="radio"
+									id="soon"
+									name="daysUntilNextPurchase"
+									value={7}
+									checked={itemData.daysUntilNextPurchase === '7'}
+									onChange={handleChange}
+									className="radio-input"
+								/>
+								<span className="checkmark"></span>
+							</div>
+							Soon
+						</label>
+						<br />
+
+						<label htmlFor="kind-of-soon" className="custom-radio-btn">
+							<div className="radio">
+								<input
+									type="radio"
+									id="kind-of-soon"
+									name="daysUntilNextPurchase"
+									value={14}
+									checked={itemData.daysUntilNextPurchase === '14'}
+									onChange={handleChange}
+									className="radio-input"
+								/>
+								<span className="checkmark"></span>
+							</div>
+							Kind of soon
+						</label>
+						<br />
+
+						<label htmlFor="not-soon" className="custom-radio-btn">
+							<div className="radio">
+								<input
+									type="radio"
+									id="not-soon"
+									name="daysUntilNextPurchase"
+									value={30}
+									checked={itemData.daysUntilNextPurchase === '30'}
+									onChange={handleChange}
+									className="radio-input"
+								/>
+								<span className="checkmark"></span>
+							</div>
+							Not soon
+						</label>
+					</fieldset>
+
 					<br />
-
-					<label htmlFor="not-soon">
-						<input
-							type="radio"
-							id="not-soon"
-							name="daysUntilNextPurchase"
-							value={30}
-							checked={itemData.daysUntilNextPurchase === '30'}
-							onChange={handleChange}
-						/>
-						Not soon
-					</label>
-				</fieldset>
-
-				<br />
-				<div>
-					<button className="bg-bgButton">Add item</button>
-				</div>
-			</form>
+					<div>
+						<button className="btn-primary  my-18">Add item</button>
+					</div>
+				</form>
+			</div>
 		</>
 	);
 }

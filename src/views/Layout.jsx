@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { FaListUl } from 'react-icons/fa';
-import { IoMdAdd } from 'react-icons/io';
+// import { MdAddBox } from 'react-icons/Md';
 import basket from '../assets/basket1.png';
 
 /**
@@ -30,7 +30,9 @@ export function Layout() {
 						<FaListUl />
 					</NavLink>
 					<NavLink to="/add-item" className="Nav-link">
-						<IoMdAdd className="text-3xl" />
+						List
+						{/* please Mike help me fix this it was throwing error about "Two output files share the same path but have different contents: node_modules\\.vite\\deps_temp\\react-icons_Md.js" I decided to remove it entirely before pushing..Many thanks 😊}
+						{/* <MdAddBox className="text-4xl"/> */}
 					</NavLink>
 				</nav>
 			</div>

@@ -102,6 +102,44 @@ ul {
 	box-shadow: 0 30px 28px hsl(0deg 0% 0% / 0.3);
 }
 
+.custom-radio-btn {
+	display: inline-flex;
+	align-items: center;
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+.radio-input {
+	display: none;
+}
+
+.radio {
+	position: relative;
+	width: 1.25em;
+	height: 1.25em;
+	border: 2px solid #bcc7c5;
+	border-radius: 50%;
+	margin-right: 10px;
+	box-sizing: border-box;
+	padding: 2px;
+}
+
+.radio .checkmark {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background-color: #ffbf00;
+	display: none;
+}
+
+.radio input[type='radio']:checked ~ .checkmark {
+	display: block;
+}
+
 @layer components {
 	.layout {
 		@apply bg-white flex flex-col m-auto max-w-[100vw] pt-4;
@@ -125,12 +163,15 @@ ul {
 		@apply border-0 mt-[10px];
 	}
 	.success {
-		@apply bg-green-300 text-black inline-block w-full mb-4;
+		@apply text-green-500 inline-block w-full mb-4 font-bold;
 	}
 	.failed {
-		@apply bg-red-800 text-white inline-block w-full mb-4;
+		@apply text-red-500 inline-block w-full mb-4 font-bold;
 	}
 	.alert {
 		@apply absolute max-w-[500px] w-full;
+	}
+	.btn-primary {
+		@apply py-2 px-4 bg-amber-400 text-white font-semibold rounded-lg shadow-md hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-opacity-75;
 	}
 }
