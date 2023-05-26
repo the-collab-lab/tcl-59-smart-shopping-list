@@ -80,7 +80,7 @@ export function AddItem({ listToken, data }) {
 				<form onSubmit={handleSubmit} className="form">
 					<label
 						htmlFor="itemName"
-						className=" font-bold text-5xl text-yellow-500"
+						className=" font-bold text-5xl text-0 font-body"
 					>
 						Item name:
 					</label>
@@ -95,7 +95,7 @@ export function AddItem({ listToken, data }) {
 					/>
 
 					<fieldset className="fieldsetClass flex">
-						<legend className="font-bold text-3xl my-5 pt-10">
+						<legend className="font-bold text-3xl my-5 pt-10 font-body">
 							How soon will you buy this again?
 						</legend>
 						<label htmlFor="soon" className="custom-radio-btn">

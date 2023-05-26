@@ -162,16 +162,21 @@ export function ListItem({ item, listToken }) {
 				isRecentlyPurchased ? 'You recently purchased this item' : undefined
 			}
 		>
-			<label htmlFor={item.id} className="w-60 font-bold">
-				<input
-					type="checkbox"
-					id={item.id}
-					defaultChecked={isRecentlyPurchased}
-					disabled={isRecentlyPurchased}
-					onChange={(e) => {
-						handleUpdate(e.target.checked);
-					}}
-				/>{' '}
+			<label htmlFor={item.id} className="custom-checkbox">
+				<div className="checkbox">
+					<input
+						className="checkbox-input"
+						type="checkbox"
+						id={item.id}
+						defaultChecked={isRecentlyPurchased}
+						disabled={isRecentlyPurchased}
+						onChange={(e) => {
+							handleUpdate(e.target.checked);
+						}}
+					/>
+					<span className="checkmark"></span>
+				</div>
+
 				{item.name}
 			</label>
 
