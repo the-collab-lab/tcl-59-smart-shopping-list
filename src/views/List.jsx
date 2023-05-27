@@ -12,8 +12,6 @@ export function List({ data, isLoading, listToken }) {
 	const [showModal, setShowModal] = useState(false);
 	const [details, setDetails] = useState(null);
 
-	console.log(details);
-
 	const filteredData = data.filter((item) =>
 		item.name.toLowerCase().includes(searchQuery.toLowerCase()),
 	);

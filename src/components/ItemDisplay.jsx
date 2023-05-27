@@ -13,7 +13,7 @@ const ItemDisplay = ({ setShowModal, closeModal, details }) => {
 				setShowModal(false);
 			}
 		});
-	}, []);
+	}, [setShowModal]);
 
 	const convertFromNull =
 		details.dateLastPurchased === null
