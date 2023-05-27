@@ -1,6 +1,6 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import { FaListUl } from 'react-icons/fa';
-import { IoMdAdd } from 'react-icons/io';
+import { MdAddBox } from 'react-icons/md';
 import basket from '../assets/basket1.png';
 
 /**
@@ -15,9 +15,11 @@ export function Layout() {
 	return (
 		<>
 			<div className="layout">
-				<header className="flex">
+				<header className="flex pl-4">
 					<img src={basket} alt="" width={50} height={40} />
-					<h1 className="font-bold text-[3rem] text-black">SmartBasket</h1>
+					<h1 className="font-bold text-[4rem] text-black ml-4 font-logo">
+						SmartBasket
+					</h1>
 				</header>
 				<main className="Layout-main">
 					<Outlet />
@@ -30,7 +32,7 @@ export function Layout() {
 						<FaListUl />
 					</NavLink>
 					<NavLink to="/add-item" className="Nav-link">
-						<IoMdAdd className="text-3xl" />
+						<MdAddBox className="text-4xl" />
 					</NavLink>
 				</nav>
 			</div>
