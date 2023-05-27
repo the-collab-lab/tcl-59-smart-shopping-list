@@ -10,7 +10,7 @@ import { AddItem, Home, Layout, List } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
-import ItemDetail from './components/ItemDetail';
+import ItemDisplay from './components/ItemDisplay';
 
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
@@ -125,7 +125,7 @@ export function App() {
 					path="/item/:id"
 					element={
 						listToken ? (
-							<ItemDetail listToken={listToken} />
+							<ItemDisplay listToken={listToken} />
 						) : (
 							<Navigate to="/" />
 						)
@@ -135,7 +135,7 @@ export function App() {
 					path="/item/:id"
 					element={
 						listToken ? (
-							<ItemDetail listToken={listToken} />
+							<ItemDisplay listToken={listToken} />
 						) : (
 							<Navigate to="/" />
 						)
