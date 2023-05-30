@@ -75,10 +75,11 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 						onClick={handleShowForm}
 						className={`text-2xl ${
 							showJoinForm ? 'mt-8' : 'mt-20'
-						} cursor-pointer`}
+						} cursor-pointer hover:underline hover:text-blue-400`}
 						tabIndex={0}
 					>
-						Join an existing shopping list by entering a three word token
+						Click to join an existing shopping list by entering a three word
+						token
 					</button>
 					{showJoinForm && (
 						<form onSubmit={handleSubmit} className="text-center flex flex-col">

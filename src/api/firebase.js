@@ -182,21 +182,3 @@ export function comparePurchaseUrgency(itemA, itemB) {
 		return daysUntilPurchaseA - daysUntilPurchaseB;
 	}
 }
-
-export async function getItem(listToken, itemId) {
-	try {
-		const itemRef = doc(db, listToken, itemId);
-		const itemDoc = await getDoc(itemRef);
-
-		if (itemDoc.exists()) {
-			const itemData = itemDoc.data();
-			itemData.id = itemDoc.id;
-			return itemData;
-		} else {
-			return null;
-		}
-	} catch (error) {
-		console.error('Error getting item:', error);
-		return null;
-	}
-}

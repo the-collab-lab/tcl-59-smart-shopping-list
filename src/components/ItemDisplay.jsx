@@ -1,30 +1,28 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import logo from '../assets/one.jpg';
 import { format } from 'date-fns';
 
-const ItemDisplay = ({ setShowModal, closeModal, details }) => {
-	const mainRef = useRef(null);
-
+const ItemDisplay = ({ closeModal, details }) => {
 	useEffect(() => {
-		mainRef.current = document.getElementById('modal');
+		const mainRef = document.getElementById('modal');
 
 		window.addEventListener('click', function (e) {
-			if (e.target === mainRef.current) {
-				setShowModal(false);
+			if (e.target === mainRef) {
+				closeModal();
 			}
 		});
-	}, [setShowModal]);
+	}, [closeModal]);
 
-	const convertFromNull =
+	const dateLastPurchased =
 		details.dateLastPurchased === null
 			? details.dateCreated
 			: details.dateLastPurchased;
 
-	const convertToDate = (date) => {
-		let dateValue = date.toDate();
-		let day = date.toDate().getDay();
+	const convertToDate = (timestamp) => {
+		let dateValue = timestamp.toDate();
+		let date = dateValue.getDate();
 		let monthName = format(new Date(2023, dateValue.getMonth()), 'MMMM');
-		return [day, ' ', monthName];
+		return [date, ' ', monthName];
 	};
 
 	return (
@@ -52,9 +50,9 @@ const ItemDisplay = ({ setShowModal, closeModal, details }) => {
 						<img src={logo} alt="" className="w-40 h-48 object-contain" />
 						<p className="text-4xl">{details.name}</p>
 					</section>
-					<section className="mt-16 bg-0 p-4 rounded-lg">
+					<section className="mt-16 bg-0 p-4 rounded-lg bg-bgHome">
 						<p>Number of Purchases: {details.totalPurchases}</p>
-						<p>Last Purchased: {convertToDate(convertFromNull)}</p>
+						<p>Last Purchased: {convertToDate(dateLastPurchased)}</p>
 						<p>Next Purchase: {convertToDate(details.dateNextPurchased)}</p>
 					</section>
 				</div>

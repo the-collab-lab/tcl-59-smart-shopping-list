@@ -4,10 +4,9 @@ import { sub } from 'date-fns';
 import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
-import { Link } from 'react-router-dom';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
-export function ListItem({ item, listToken, setDetails, handleModal }) {
+export function ListItem({ item, listToken, onSelected, openModal }) {
 	const overdueItems = getDaysBetweenDates(
 		item.dateNextPurchased.toDate(),
 		new Date().setHours(0, 0, 0, 0),
@@ -157,9 +156,9 @@ export function ListItem({ item, listToken, setDetails, handleModal }) {
 	};
 
 	const handleSelectedItem = (item) => {
-		setDetails(item);
+		onSelected(item);
 
-		handleModal();
+		openModal();
 	};
 
 	return (

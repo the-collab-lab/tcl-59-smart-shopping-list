@@ -6,7 +6,6 @@ export default {
 			backgroundColor: {
 				bgHome: '#f8998b',
 				bgButton: '#FFBF00',
-				
 			},
 		},
 	},

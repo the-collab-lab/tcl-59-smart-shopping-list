@@ -21,7 +21,7 @@ export function List({ data, isLoading, listToken }) {
 		return <BeatLoader color="black" loading={isLoading} size={15} />;
 	}
 
-	const handleModal = () => {
+	const openModal = () => {
 		setShowModal(true);
 	};
 
@@ -61,18 +61,14 @@ export function List({ data, isLoading, listToken }) {
 									listToken={listToken}
 									key={item.id}
 									item={item}
-									setDetails={setDetails}
-									handleModal={handleModal}
+									onSelected={(item) => setDetails(item)}
+									openModal={openModal}
 								/>
 							))}
 						</ul>
 					</div>
 					{showModal && (
-						<ItemDisplay
-							details={details}
-							closeModal={closeModal}
-							setShowModal={setShowModal}
-						/>
+						<ItemDisplay details={details} closeModal={closeModal} />
 					)}
 				</>
 			)}
