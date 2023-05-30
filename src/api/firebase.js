@@ -5,6 +5,7 @@ import {
 	doc,
 	updateDoc,
 	deleteDoc,
+	getDoc,
 } from 'firebase/firestore';
 import { db } from './config';
 import { getFutureDate } from '../utils';

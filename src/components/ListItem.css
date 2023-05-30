@@ -5,15 +5,49 @@
 	font-size: 1.2em;
 	margin-bottom: 1em;
 	color: black;
+	width: 100%;
 }
 
-.ListItem-checkbox {
-	accent-color: var(--color-accent);
+.custom-checkbox {
+	display: flex;
+	align-items: center;
+	width: 21.5rem;
+}
+
+.checkbox-input {
+	display: none;
+}
+
+.checkbox {
+	position: relative;
+	height: 30px;
+	width: 30px;
+	border: 2px solid;
+	border-radius: 50%;
+	margin-right: 8px;
+	padding: 2px;
+}
+
+.checkbox .checkmark {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: #f8998b;
+	display: none;
+}
+
+.checkbox input[type='checkbox']:checked ~ .checkmark {
+	display: block;
 }
 
 .progress-bar {
+	max-width: 100%;
 	width: 100%;
-	height: 40px;
+	height: 35px;
 	background-color: #f2f2f2;
 	border-radius: 40px;
 	margin-left: 10px;

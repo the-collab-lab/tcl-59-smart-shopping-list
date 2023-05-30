@@ -10,6 +10,7 @@ import { AddItem, Home, Layout, List } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
+import ItemDisplay from './components/ItemDisplay';
 
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
@@ -120,6 +121,26 @@ export function App() {
 						}
 					/>
 				</Route>
+				<Route
+					path="/item/:id"
+					element={
+						listToken ? (
+							<ItemDisplay listToken={listToken} />
+						) : (
+							<Navigate to="/" />
+						)
+					}
+				/>
+				<Route
+					path="/item/:id"
+					element={
+						listToken ? (
+							<ItemDisplay listToken={listToken} />
+						) : (
+							<Navigate to="/" />
+						)
+					}
+				/>
 			</Routes>
 		</Router>
 	);
