@@ -5,6 +5,7 @@ import { getFutureDate } from '../utils';
 import { getDaysBetweenDates } from '../utils/dates';
 import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
 
 export function ListItem({ item, listToken, onSelected, openModal }) {
 	const overdueItems = getDaysBetweenDates(
@@ -168,17 +169,7 @@ export function ListItem({ item, listToken, onSelected, openModal }) {
 				isRecentlyPurchased ? 'You recently purchased this item' : undefined
 			}
 		>
-			<div
-				className="flex items-center justify-between w-full"
-				onClick={() => handleSelectedItem(item)}
-				tabIndex={0}
-				role="button"
-				onKeyDown={(event) => {
-					if (event.key === 'Enter') {
-						handleSelectedItem(item);
-					}
-				}}
-			>
+			<div className="flex items-center justify-between w-full">
 				<label htmlFor={item.id} className="custom-checkbox">
 					<div className="checkbox">
 						<input
@@ -196,6 +187,17 @@ export function ListItem({ item, listToken, onSelected, openModal }) {
 
 					{item.name}
 				</label>
+				<IoMdInformationCircleOutline
+					onClick={() => handleSelectedItem(item)}
+					tabIndex={0}
+					role="button"
+					title="more details"
+					onKeyDown={(event) => {
+						if (event.key === 'Enter') {
+							handleSelectedItem(item);
+						}
+					}}
+				/>
 
 				<aside className="progress-bar" title={addTitle()}>
 					<div className={getProgressBarStat()}>
