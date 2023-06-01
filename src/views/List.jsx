@@ -55,7 +55,7 @@ export function List({ data, isLoading, listToken }) {
 								onChange={(e) => setSearchQuery(e.target.value)}
 							/>
 						</div>
-						<ul>
+						<ul className="mt-44">
 							{sortedList.map((item) => (
 								<ListItem
 									listToken={listToken}
