@@ -57,10 +57,10 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 					Welcome to your smart shopping list!
 				</h2>
 				<div
-					onClick={handleCreateList}
+					onClick={() => console.log('Creating new lists is disabled')}
 					onKeyDown={(event) => {
 						if (event.key === 'Enter') {
-							handleCreateList();
+							console.log('Creating new lists is disabled');
 						}
 					}}
 					role="button"
