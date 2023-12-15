@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import basket from '../assets/basket1.png';
 import { FaListUl } from 'react-icons/fa';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 	const [token, setToken] = useState('');
@@ -103,6 +104,7 @@ export function Home({ handleCreateList, handleJoinList, errorMsg }) {
 				</article>
 				<p className="text-red-500">{errorMsg}</p>
 			</section>
+			<ArchivalNoticeModal />
 		</main>
 	);
 }
